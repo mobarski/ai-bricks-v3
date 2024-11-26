@@ -13,7 +13,7 @@ Simple, unified interface to multiple Generative AI providers.
 | ArliAI     | `arliai:Mistral-Nemo-12B-Instruct-2407` | ARLIAI_API_KEY |
 | XAI        | `xai:grok-beta` | XAI_API_KEY |
 | LMStudio   | `lmstudio:` | N/A |
-| tabbyAPI   | `tabbyapi:` | TABBYAPI_API_KEY<br>TABBYAPI_ADMIN_KEY<br>HF_HUB_TOKEN |
+| tabbyAPI   | `tabbyapi:` | TABBYAPI_API_KEY<br>TABBYAPI_ADMIN_KEY<br>HF_API_TOKEN |
 | KoboldCPP  | `koboldcpp:` | N/A |
 | LlamaCPP   | `llamacpp:` | N/A |
 

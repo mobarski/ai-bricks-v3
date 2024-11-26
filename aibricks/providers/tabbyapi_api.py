@@ -9,7 +9,7 @@ from .openai_api import OpenAiHttpApi
 class TabbyApiHttpApi(OpenAiHttpApi):
     api_key_env = 'TABBY_API_KEY'
     admin_key_env = 'TABBY_ADMIN_KEY'
-    hf_hub_key_env = 'HUGGING_FACE_HUB_TOKEN'
+    hf_api_token_env = 'HF_API_TOKEN'
     api_base_url = "http://127.0.0.1:5000/v1"
     provider = "tabbyapi"
 
@@ -18,7 +18,7 @@ class TabbyApiHttpApi(OpenAiHttpApi):
             "repo_id": repo_id,
             "folder_name": folder_name,
             "revision": revision,
-            "token": os.getenv(self.hf_hub_key_env),
+            "token": os.getenv(self.hf_api_token_env),
             **kwargs
         }
         raw_resp = requests.post(
