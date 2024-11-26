@@ -27,4 +27,7 @@ def connect(model_str, **kwargs):
     if provider == "google":
         from .providers.google_api import GoogleHttpApi
         return GoogleHttpApi(model, **kwargs)
+    if provider == "ollama":
+        from .providers.ollama_api import OllamaHttpApi
+        return OllamaHttpApi(model, **kwargs)
     raise Exception(f"Unknown provider: {provider}")
