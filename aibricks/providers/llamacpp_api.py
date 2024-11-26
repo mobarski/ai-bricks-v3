@@ -1,4 +1,4 @@
-from openai_api import OpenAiHttpApi
+from .openai_api import OpenAiHttpApi
 
 
 # REF: https://github.com/ggerganov/llama.cpp/blob/master/examples/server/README.md

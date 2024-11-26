@@ -1,4 +1,4 @@
-from openai_api import OpenAiHttpApi
+from .openai_api import OpenAiHttpApi
 
 
 class LmStudioHttpApi(OpenAiHttpApi):
