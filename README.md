@@ -17,6 +17,10 @@ Simple, unified interface to multiple Generative AI providers.
 | KoboldCPP  | `koboldcpp:` | N/A |
 | LlamaCPP   | `llamacpp:` | N/A |
 
+## Installation
+
+Don't. It's still in the experimental phase.
+
 ## How to use
 
 
@@ -29,8 +33,9 @@ print(resp)
 ```
 
 How to test the provider API:
-`python3 -m aibricks.providers.lmstudio_api`
-
+```sh
+python3 -m aibricks.providers.lmstudio_api
+```
 
 ## License
 
