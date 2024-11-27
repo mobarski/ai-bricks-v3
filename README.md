@@ -34,7 +34,7 @@ Don't. It's still in the experimental phase.
 ```python
 import aibricks
 
-# streamlined API
+# streamlined
 model = aibricks.connect('openrouter:qwen/qwen-2.5-coder-32b-instruct', temperature=0.7)
 resp = model.chat_create([{"role": "user", "content": "Tell me a joke."}])
 print(resp)
