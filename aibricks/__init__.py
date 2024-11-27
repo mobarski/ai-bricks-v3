@@ -1,3 +1,6 @@
+from .client import Client
+
+
 def connect(connection_str, **kwargs):
     provider, model = connection_str.split(":", 1)
     if provider == "openai":
@@ -31,3 +34,7 @@ def connect(connection_str, **kwargs):
         from .providers.ollama_api import OllamaHttpApi
         return OllamaHttpApi(model, **kwargs)
     raise Exception(f"Unknown provider: {provider}")
+
+
+def client():
+    return Client(connect)
