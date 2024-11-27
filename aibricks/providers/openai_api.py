@@ -16,12 +16,9 @@ class OpenAiHttpApi:
         self.model = model
         self.kwargs = kwargs
 
+    # TODO: wrappers(self, url, headers, data, raw_resp, normalized_response)
     def chat_create(self, messages, **kwargs):
-        data = {
-            'model': self.model,
-            'messages': messages,
-            **{**self.kwargs, **kwargs}
-        }
+        data = self.normalized_data(messages, **kwargs)
         raw_resp = requests.post(
             url=f"{self.api_base_url}/chat/completions",
             headers=self.headers(),
@@ -38,6 +35,13 @@ class OpenAiHttpApi:
     def api_key(self):
         return os.getenv(self.api_key_env) if self.api_key_env else 'NO-API-KEY-SET'
 
+    def normalized_data(self, messages, **kwargs):
+        return {
+            'model': self.model,
+            'messages': messages,
+            **{**self.kwargs, **kwargs}
+        }
+
     def normalized_response(self, raw_resp):
         resp = self.parse_response(raw_resp)
         return resp
@@ -49,6 +53,12 @@ class OpenAiHttpApi:
             raise Exception(f"Failed to parse response: {raw_resp.text}")
         return resp
 
+"""
+def my_wrapper(ctx):
+    t0 = time.time()
+    ctx.fun(*ctx.args, **ctx.kwargs)
+    ctx.duration = time.time() - t0
+"""
 
 if __name__ == "__main__":
     model = OpenAiHttpApi("gpt-3.5-turbo")

@@ -1,14 +1,14 @@
 # TESTING
 
-- [ ] drop-in OpenaAI API replacement
 
 # ACTIVE
 
+- [ ] middleware
 - [ ] config (yaml + string.Template)
+- [ ] config as separate part (in pyproject.toml)
 
 # TODO
 
-- [ ] middleware
 - [ ] logging (sqlite)
 - [ ] usage
 - [ ] prices
@@ -33,3 +33,7 @@
 
 # DONE
 
+- [x] drop-in OpenaAI API replacement
+- [x] unit tests structure (providers)
+- [x] client(model=lambda x:...)
+- [x] fix: arliai test

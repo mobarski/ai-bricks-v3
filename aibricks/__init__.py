@@ -36,5 +36,5 @@ def connect(connection_str, **kwargs):
     raise Exception(f"Unknown provider: {provider}")
 
 
-def client():
-    return Client(connect)
+def client(model=None, **kwargs):
+    return Client(connect, model=model, **kwargs)
