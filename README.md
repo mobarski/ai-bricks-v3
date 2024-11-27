@@ -6,7 +6,8 @@ This project is similar in scope to [AISuite](https://github.com/andrewyng/aisui
 but with the following differences:
 - streamlined API (still similar to OpenAI's)
 - configuration driven (yaml)
-- minimal dependencies:`requests`, `pyyaml`
+- stronger support for local models (tabbyAPI, KoboldCpp, ...)
+- minimal dependencies (requests, pyyaml)
 
 ## Supported providers
 
@@ -20,8 +21,8 @@ but with the following differences:
 | tabbyAPI   | `tabbyapi:` | TABBYAPI_API_KEY<br>TABBYAPI_ADMIN_KEY<br>HF_API_TOKEN |
 | Ollama     | `ollama:qwen2.5-coder:7b` | - |
 | LMStudio   | `lmstudio:` | - |
-| KoboldCPP  | `koboldcpp:` | - |
-| LlamaCPP   | `llamacpp:` | - |
+| KoboldCpp  | `koboldcpp:` | - |
+| LlamaCpp   | `llamacpp:` | - |
 
 ## Installation
 
