@@ -5,7 +5,6 @@
 
 - [ ] middleware
 - [ ] config (yaml + string.Template)
-- [ ] config as separate part (in pyproject.toml)
 
 # TODO
 
@@ -33,7 +32,8 @@
 
 # DONE
 
-- [x] drop-in OpenaAI API replacement
-- [x] unit tests structure (providers)
-- [x] client(model=lambda x:...)
+- [x] config as separate part (in pyproject.toml)
 - [x] fix: arliai test
+- [x] client(model=lambda x:...)
+- [x] unit tests structure (providers)
+- [x] drop-in OpenaAI API replacement

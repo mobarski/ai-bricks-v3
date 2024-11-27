@@ -3,11 +3,13 @@ import os
 
 import requests
 
+from ..middleware import MiddlewareMixin, MiddlewareContext
+
 # REF: https://github.com/andrewyng/aisuite/blob/main/aisuite/providers/openai_provider.py
 # REF:https://platform.openai.com/docs/api-reference/chat/create
 
 
-class OpenAiHttpApi:
+class OpenAiHttpApi(MiddlewareMixin):
     api_key_env = "OPENAI_API_KEY"
     api_base_url = "https://api.openai.com/v1"
     provider = "openai"
@@ -16,15 +18,23 @@ class OpenAiHttpApi:
         self.model = model
         self.kwargs = kwargs
 
-    # TODO: wrappers(self, url, headers, data, raw_resp, normalized_response)
     def chat_create(self, messages, **kwargs):
+        ctx = MiddlewareContext()
         data = self.normalized_data(messages, **kwargs)
+        data = self.run_middleware("data", ctx, data)
+        # ------------------------------------------------
         raw_resp = requests.post(
             url=f"{self.api_base_url}/chat/completions",
             headers=self.headers(),
             data=json.dumps(data)
         )
-        return self.normalized_response(raw_resp)
+        # ------------------------------------------------
+        raw_resp = self.run_middleware("raw_resp", ctx, raw_resp)
+        resp = self.parse_response(raw_resp)
+        resp = self.run_middleware("resp", ctx, resp)
+        norm_resp = self.normalize_response(resp)
+        norm_resp = self.run_middleware("norm_resp", ctx, norm_resp)
+        return norm_resp
 
     def headers(self):
         return {
@@ -33,7 +43,12 @@ class OpenAiHttpApi:
         }
 
     def api_key(self):
-        return os.getenv(self.api_key_env) if self.api_key_env else 'NO-API-KEY-SET'
+        if self.api_key_env:
+            api_key = os.getenv(self.api_key_env)
+            if not api_key:
+                raise Exception(f"environment variable {self.api_key_env} is not set")
+            return api_key
+        return "NO-API-KEY-SET"
 
     def normalized_data(self, messages, **kwargs):
         return {
@@ -42,8 +57,7 @@ class OpenAiHttpApi:
             **{**self.kwargs, **kwargs}
         }
 
-    def normalized_response(self, raw_resp):
-        resp = self.parse_response(raw_resp)
+    def normalize_response(self, resp):
         return resp
 
     def parse_response(self, raw_resp):
