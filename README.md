@@ -4,10 +4,10 @@ Simple, unified interface to multiple Generative AI providers.
 
 This project is similar in scope to [AISuite](https://github.com/andrewyng/aisuite),
 but with the following differences:
-- streamlined API + drop-in replacement for OpenAI API
-- configuration driven (yaml + string.Template)
-- stronger support for local models (tabbyAPI, KoboldCpp, ...)
 - minimal dependencies (requests, pyyaml)
+- stronger support for local models (tabbyAPI, KoboldCpp, ...)
+- wrapper infrastructure for logging, usage, pricing, styling, etc
+- configuration driven (yaml + string.Template)
 
 ## Supported providers
 
@@ -34,18 +34,26 @@ Don't. It's still in the experimental phase.
 ```python
 import aibricks
 
-# streamlined
-model = aibricks.connect('openrouter:qwen/qwen-2.5-coder-32b-instruct', temperature=0.7)
-resp = model.chat_create([{"role": "user", "content": "Tell me a joke."}])
-print(resp)
-
-# OpenAI style
+# OpenAI drop in replacement
 client = aibricks.client()
 resp = client.chat.completions.create(
     model='openrouter:qwen/qwen-2.5-coder-32b-instruct',
     messages=[{"role": "user", "content": "Tell me a joke."}],
-    temperature=0.7)
+    temperature=0.7
+)
 print(resp)
+
+# with default parameters
+client = aibricks.client(
+    model='openrouter:qwen/qwen-2.5-coder-32b-instruct',
+    temperature=0.7
+)
+resp = client.chat.completions.create(
+    model='IGNORED',
+    messages=[{"role": "user", "content": "Tell me a joke."}],
+)
+print(resp)
+
 ```
 
 ## How to test

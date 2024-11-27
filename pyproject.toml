@@ -9,3 +9,6 @@ dependencies = [
     "pyyaml>=6.0.2",
     "requests>=2.32.3",
 ]
+
+[project.optional-dependencies]
+test = ["pytest>=8.0.0"]
