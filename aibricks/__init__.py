@@ -1,5 +1,5 @@
-def connect(model_str, **kwargs):
-    provider, model = model_str.split(":", 1)
+def connect(connection_str, **kwargs):
+    provider, model = connection_str.split(":", 1)
     if provider == "openai":
         from .providers.openai_api import OpenAiHttpApi
         return OpenAiHttpApi(model, **kwargs)

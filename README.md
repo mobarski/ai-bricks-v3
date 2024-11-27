@@ -2,20 +2,26 @@
 
 Simple, unified interface to multiple Generative AI providers.
 
+This project is similar in scope to [AISuite](https://github.com/andrewyng/aisuite),
+but with the following differences:
+- streamlined API (still similar to OpenAI's)
+- configuration driven (yaml)
+- minimal dependencies:`requests`, `pyyaml`
 
 ## Supported providers
 
-| Provider   | Example Model String | Environmental Variables |
+| Provider   | Example Connection String | Environmental Variables |
 |------------|----------------------|------------------------------|
 | OpenAI     | `openai:gpt-3.5-turbo` | OPENAI_API_KEY |
 | Google     | `google:gemini-1.5-flash` | GEMINI_API_KEY |
 | OpenRouter | `openrouter:openai/gpt-3.5-turbo` | OPENROUTER_API_KEY |
 | ArliAI     | `arliai:Mistral-Nemo-12B-Instruct-2407` | ARLIAI_API_KEY |
 | XAI        | `xai:grok-beta` | XAI_API_KEY |
-| LMStudio   | `lmstudio:` | N/A |
 | tabbyAPI   | `tabbyapi:` | TABBYAPI_API_KEY<br>TABBYAPI_ADMIN_KEY<br>HF_API_TOKEN |
-| KoboldCPP  | `koboldcpp:` | N/A |
-| LlamaCPP   | `llamacpp:` | N/A |
+| Ollama     | `ollama:qwen2.5-coder:7b` | - |
+| LMStudio   | `lmstudio:` | - |
+| KoboldCPP  | `koboldcpp:` | - |
+| LlamaCPP   | `llamacpp:` | - |
 
 ## Installation
 

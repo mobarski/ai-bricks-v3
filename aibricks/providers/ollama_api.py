@@ -9,7 +9,6 @@ class OllamaHttpApi(OpenAiHttpApi):
 
 
 if __name__ == "__main__":
-    # TODO: test this
-    model = OllamaHttpApi("llama-3.2-1b-instruct@q4_k_m")
+    model = OllamaHttpApi("qwen2.5-coder:7b")
     resp = model.chat_create([{"role": "user", "content": "Tell me a joke."}])
     print(resp)
