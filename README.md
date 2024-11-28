@@ -63,13 +63,13 @@ print(resp)
 python3 -m aibricks.providers.lmstudio_api
 
 # Run all tests
-pytest tests/
-
-# Run only config tests
-pytest tests/aibricks/config/
+pytest
 
 # Run only provider tests
 pytest tests/aibricks/providers/
+
+# Run only config tests
+pytest tests/aibricks/config/
 ```
 
 ## License
