@@ -1,5 +1,3 @@
-from .core import MiddlewareBase
-from .core import MiddlewareContext
-from .core import MiddlewareMixin
+from .core import MiddlewareBase, MiddlewareContext, MiddlewareMixin  # noqa
 
-from .timing import TimingMiddleware
+from .timing import TimingMiddleware  # noqa

@@ -7,27 +7,23 @@ class MiddlewareContext(SimpleNamespace):
 
 class MiddlewareBase:
 
-    # def init(self, obj, ctx, data):
-    #     return data
+    def __init__(self, ctx):
+        self.ctx = ctx
 
-    def data(self, obj, ctx, data):
+    def request(self, data):
         return data
 
-    def raw_resp(self, obj, ctx, raw_resp):
-        return raw_resp
+    def response(self, data):
+        return data
 
-    def resp(self, obj, ctx, resp):
-        return resp
-
-    def norm_resp(self, obj, ctx, norm_resp):
-        return norm_resp
+    # other events can be added
 
 
 class MiddlewareMixin:
     middleware = []
 
-    def run_middleware(self, event, ctx, data):
+    def run_middleware(self, event, data):
         for m in self.middleware:
             if hasattr(m, event):
-                data = getattr(m, event)(self, ctx, data)
+                data = getattr(m, event)(data)
         return data

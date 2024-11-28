@@ -1,12 +1,18 @@
 # TESTING
 
+- [ ] timing
+- [ ] middleware
 
 # ACTIVE
 
-- [ ] middleware
 - [ ] config (yaml + string.Template)
-g
+
 # TODO
+
+- [ ] structured output (openai)
+- [ ] outlines server provider
+- [ ] structured output (others)
+- [ ] structured output (outlines)
 
 - [ ] logging (sqlite)
 - [ ] usage

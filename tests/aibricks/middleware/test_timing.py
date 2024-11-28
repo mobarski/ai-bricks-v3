@@ -1,6 +1,7 @@
 import pytest
 
 import aibricks
+from aibricks.middleware import TimingMiddleware, MiddlewareContext
 
 
 @pytest.mark.parametrize("model_id", [
@@ -11,9 +12,11 @@ import aibricks
     "xai:grok-beta",
 ])
 def test_online_provider(model_id):
+    ctx = MiddlewareContext()
     model = aibricks.connect(model_id)
-    model.middleware.append(aibricks.middleware.TimingMiddleware())
+    model.middleware.append(TimingMiddleware(ctx))
     resp = model.chat_create([{"role": "user", "content": "Tell me a joke."}])
+    print('middleware-duration:', model_id, ctx.duration)
     try:
         content = resp['choices'][0]['message']['content']
     except KeyError as e:

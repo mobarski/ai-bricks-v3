@@ -19,21 +19,18 @@ class OpenAiHttpApi(MiddlewareMixin):
         self.kwargs = kwargs
 
     def chat_create(self, messages, **kwargs):
-        ctx = MiddlewareContext()
         data = self.normalized_data(messages, **kwargs)
-        data = self.run_middleware("data", ctx, data)
-        # ------------------------------------------------
-        raw_resp = requests.post(
-            url=f"{self.api_base_url}/chat/completions",
-            headers=self.headers(),
-            data=json.dumps(data)
-        )
-        # ------------------------------------------------
-        raw_resp = self.run_middleware("raw_resp", ctx, raw_resp)
+        request = self.normalized_request(data)
+        request = self.run_middleware("request", request)
+        request['data'] = json.dumps(data)  # done here to allow data modification
+        # -------------------------------
+        raw_resp = requests.post(**request)
+        # -------------------------------
+        raw_resp = self.run_middleware("raw_response", raw_resp)
         resp = self.parse_response(raw_resp)
-        resp = self.run_middleware("resp", ctx, resp)
+        resp = self.run_middleware("response", resp)
         norm_resp = self.normalize_response(resp)
-        norm_resp = self.run_middleware("norm_resp", ctx, norm_resp)
+        norm_resp = self.run_middleware("normalized_response", norm_resp)
         return norm_resp
 
     def headers(self):
@@ -56,6 +53,13 @@ class OpenAiHttpApi(MiddlewareMixin):
             'messages': messages,
             **{**self.kwargs, **kwargs}
         }
+
+    def normalized_request(self, data):
+        return dict(
+            url=f"{self.api_base_url}/chat/completions",
+            headers=self.headers(),
+            data=data,
+        )
 
     def normalize_response(self, resp):
         return resp
