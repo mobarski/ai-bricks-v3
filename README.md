@@ -5,10 +5,9 @@ Simple, unified interface to multiple Generative AI providers.
 This project is similar in scope to [AISuite](https://github.com/andrewyng/aisuite),
 but with the following differences:
 - minimal dependencies (requests)
-- stronger support for local models (tabbyAPI, KoboldCpp, LMStudio, ...)
-- middleware for logging, usage, pricing, styling, etc
-Optionally:
-- configuration driven (yaml + string.Template)
+- stronger support for local model servers (tabbyAPI, KoboldCpp, LMStudio, Outlines, ...)
+- middleware for logging, usage tracking, styling, etc
+
 
 ## Supported providers
 
