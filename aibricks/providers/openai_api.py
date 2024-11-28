@@ -18,6 +18,7 @@ class OpenAiHttpApi(MiddlewareMixin):
         self.model = model
         self.kwargs = kwargs
 
+    # TODO: rename
     def chat_create(self, messages, **kwargs):
         data = self.normalized_data(messages, **kwargs)
         request = self.normalized_request(data)
@@ -47,6 +48,7 @@ class OpenAiHttpApi(MiddlewareMixin):
             return api_key
         return "NO-API-KEY-SET"
 
+    # TODO: combine with normalized_request ???
     def normalized_data(self, messages, **kwargs):
         return {
             'model': self.model,
@@ -54,6 +56,7 @@ class OpenAiHttpApi(MiddlewareMixin):
             **{**self.kwargs, **kwargs}
         }
 
+    # TODO: combine with normalized_data ???
     def normalized_request(self, data):
         return dict(
             url=f"{self.api_base_url}/chat/completions",

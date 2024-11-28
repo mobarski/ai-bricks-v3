@@ -16,7 +16,7 @@ from aibricks.middleware import TimingMiddleware
 def test_online_provider(model_id):
     ctx = SimpleNamespace()
     model = aibricks.connect(model_id)
-    model.middleware.append(TimingMiddleware(ctx))
+    model.add_middleware(TimingMiddleware(ctx))
     resp = model.chat_create([{"role": "user", "content": "Tell me a joke."}])
     print('middleware-duration:', model_id, ctx.duration)
     try:

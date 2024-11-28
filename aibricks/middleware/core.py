@@ -18,6 +18,9 @@ class MiddlewareBase:
 class MiddlewareMixin:
     middleware = []
 
+    def add_middleware(self, middleware):
+        self.middleware.append(middleware)
+
     def run_middleware(self, event, data):
         for m in self.middleware:
             if hasattr(m, event):
