@@ -4,7 +4,7 @@ Simple, unified interface to multiple Generative AI providers and local model se
 
 This project is similar in scope to [AISuite](https://github.com/andrewyng/aisuite),
 but with the following differences:
-- stronger support for local model servers (*tabbyAPI*, *KoboldCpp*, *LMStudio*, *Ollama*, ...)
+- stronger support for local model servers (**tabbyAPI**, **KoboldCpp**, **LMStudio**, **Ollama**, ...)
 - focused on improving your application without having to change your code
 - middleware for logging, usage tracking, styling, etc
 - minimal dependencies (*requests*, *pyyaml*)
@@ -12,18 +12,18 @@ but with the following differences:
 
 ## Supported providers
 
-| Provider     | Example Connection String     | Environmental Variables  | Notes |
-|--------------|-------------------------------|--------------------------|-------|
-| *OpenAI*     | `openai:gpt-4o-mini`          | OPENAI_API_KEY           |       |
-| *Google*     | `google:gemini-1.5-flash`     | GEMINI_API_KEY           |       |
-| *OpenRouter* | `openrouter:openai/gpt-4o`    | OPENROUTER_API_KEY       |       |
-| *ArliAI*     | `arliai:Llama-3.1-70B-Tulu-2` | ARLIAI_API_KEY           |       |
-| *XAI*        | `xai:grok-beta`               | XAI_API_KEY              |       |
-| *Ollama*     | `ollama:qwen2.5-coder:7b`     | -                        | GGUF  |
-| *LMStudio*   | `lmstudio:`                   | -                        | GGUF  |
-| *KoboldCpp*  | `koboldcpp:`                  | -                        | GGUF  |
-| *LlamaCpp*   | `llamacpp:`                   | -                        | GGUF  |
-| *tabbyAPI*   | `tabbyapi:`                   | TABBYAPI_API_KEY<br>TABBYAPI_ADMIN_KEY<br>HF_API_TOKEN | EXL2, GPTQ<br>dynamic model downloads<br>dynamic model loading |
+| Provider       | Example Connection String     | Environmental Variables  | Notes |
+|----------------|-------------------------------|--------------------------|-------|
+| **OpenAI**     | `openai:gpt-4o-mini`          | OPENAI_API_KEY           |       |
+| **Google**     | `google:gemini-1.5-flash`     | GEMINI_API_KEY           |       |
+| **OpenRouter** | `openrouter:openai/gpt-4o`    | OPENROUTER_API_KEY       |       |
+| **ArliAI**     | `arliai:Llama-3.1-70B-Tulu-2` | ARLIAI_API_KEY           |       |
+| **XAI**        | `xai:grok-beta`               | XAI_API_KEY              |       |
+| **Ollama**     | `ollama:qwen2.5-coder:7b`     | -                        | GGUF  |
+| **LMStudio**   | `lmstudio:`                   | -                        | GGUF  |
+| **KoboldCpp**  | `koboldcpp:`                  | -                        | GGUF  |
+| **LlamaCpp**   | `llamacpp:`                   | -                        | GGUF  |
+| **tabbyAPI**   | `tabbyapi:`                   | TABBYAPI_API_KEY<br>TABBYAPI_ADMIN_KEY<br>HF_API_TOKEN | EXL2, GPTQ<br>dynamic model downloads<br>dynamic model loading |
 
 ## License
 
@@ -106,5 +106,5 @@ pytest tests/aibricks/middleware/
 - outlines support
 - vllm support
 - mamba support
-- huggingfaece downloads
+- huggingface downloads
 - more middleware
