@@ -1,7 +1,9 @@
+from types import SimpleNamespace
+
 import pytest
 
 import aibricks
-from aibricks.middleware import TimingMiddleware, MiddlewareContext
+from aibricks.middleware import TimingMiddleware
 
 
 @pytest.mark.parametrize("model_id", [
@@ -12,7 +14,7 @@ from aibricks.middleware import TimingMiddleware, MiddlewareContext
     "xai:grok-beta",
 ])
 def test_online_provider(model_id):
-    ctx = MiddlewareContext()
+    ctx = SimpleNamespace()
     model = aibricks.connect(model_id)
     model.middleware.append(TimingMiddleware(ctx))
     resp = model.chat_create([{"role": "user", "content": "Tell me a joke."}])

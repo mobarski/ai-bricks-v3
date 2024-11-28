@@ -3,7 +3,7 @@ import os
 
 import requests
 
-from ..middleware import MiddlewareMixin, MiddlewareContext
+from ..middleware import MiddlewareMixin
 
 # REF: https://github.com/andrewyng/aisuite/blob/main/aisuite/providers/openai_provider.py
 # REF:https://platform.openai.com/docs/api-reference/chat/create

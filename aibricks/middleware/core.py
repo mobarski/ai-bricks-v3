@@ -1,13 +1,9 @@
 from types import SimpleNamespace
 
 
-class MiddlewareContext(SimpleNamespace):
-    pass
-
-
 class MiddlewareBase:
 
-    def __init__(self, ctx):
+    def __init__(self, ctx: SimpleNamespace | object):
         self.ctx = ctx
 
     def request(self, data):
