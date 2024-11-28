@@ -5,6 +5,7 @@ class MiddlewareBase:
 
     def __init__(self, ctx: SimpleNamespace | object):
         self.ctx = ctx
+        self.parent = None
 
     def request(self, data):
         return data
@@ -20,6 +21,7 @@ class MiddlewareMixin:
 
     def add_middleware(self, middleware):
         self.middleware.append(middleware)
+        middleware.parent = self
 
     def run_middleware(self, event, data):
         for m in self.middleware:

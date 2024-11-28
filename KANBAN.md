@@ -3,7 +3,6 @@
 # ACTIVE
 
 - [ ] config (yaml + string.Template)
-- [ ] logging middleware (sqlite)
 
 # TODO (providers)
 
@@ -54,6 +53,7 @@
 
 # DONE
 
+- [x] logging middleware (sqlite)
 - [x] README: middleware
 - [x] timing
 - [x] middleware
