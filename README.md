@@ -50,15 +50,21 @@ resp = client.chat.completions.create(
 print(resp)
 ```
 
+
 ```python
-# with parameter overriding
+# parameter overriding example
 client = aibricks.client(
-    model='openrouter:qwen/qwen-2.5-coder-32b-instruct',
-    temperature=0.7
+    # any parameter can have a default value
+    temperature=0.7, # default value
+    # or can be overridden by a lambda taking the original value
+    model=lambda x: 'openrouter:qwen/qwen-2.5-coder-32b-instruct',
 )
+
+# somewhere else in the code
 resp = client.chat.completions.create(
-    model='IGNORED',
+    model='openrouter:openai/gpt-3.5-turbo', # ignored
     messages=[{"role": "user", "content": "Tell me a joke."}],
+    # default temperature=0.7 is used
 )
 print(resp)
 ```

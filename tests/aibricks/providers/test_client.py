@@ -33,12 +33,18 @@ def test_client_model():
 def test_client_model_lambda():
     client = aibricks.client(
         model=lambda x: 'openrouter:meta-llama/llama-3.2-1b-instruct:free',
-        temperature=0.7)
+        temperature=0.0,
+        max_tokens=1,
+        )
     resp = client.chat.completions.create(
         model='xxx',
-        messages=[{"role": "user", "content": "Tell me a joke."}],)
+        messages=[{"role": "user", "content": "Tell me a joke."}],
+        max_tokens=20,
+        )
     try:
         content = resp['choices'][0]['message']['content']
+        print(content)
+        print(resp)
     except KeyError as e:
         print(resp)
         raise e

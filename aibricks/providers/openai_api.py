@@ -18,10 +18,10 @@ class OpenAiHttpApi(MiddlewareMixin):
         self.model = model
         self.kwargs = kwargs
 
-    # TODO: rename
+    # TODO: rename ???
     def chat_create(self, messages, **kwargs):
-        data = self.normalized_data(messages, **kwargs)
-        request = self.normalized_request(data)
+        data = self.normalized_chat_data(messages, **kwargs)
+        request = self.normalized_chat_request(data)
         request = self.run_middleware("request", request)
         request['data'] = json.dumps(data)  # done here to allow data modification
         # -------------------------------
@@ -48,16 +48,16 @@ class OpenAiHttpApi(MiddlewareMixin):
             return api_key
         return "NO-API-KEY-SET"
 
-    # TODO: combine with normalized_request ???
-    def normalized_data(self, messages, **kwargs):
+    # TODO: combine with normalized_chat_request ???
+    def normalized_chat_data(self, messages, **kwargs):
         return {
             'model': self.model,
             'messages': messages,
             **{**self.kwargs, **kwargs}
         }
 
-    # TODO: combine with normalized_data ???
-    def normalized_request(self, data):
+    # TODO: combine with normalized_chat_data ???
+    def normalized_chat_request(self, data):
         return dict(
             url=f"{self.api_base_url}/chat/completions",
             headers=self.headers(),
@@ -74,12 +74,6 @@ class OpenAiHttpApi(MiddlewareMixin):
             raise Exception(f"Failed to parse response: {raw_resp.text}")
         return resp
 
-"""
-def my_wrapper(ctx):
-    t0 = time.time()
-    ctx.fun(*ctx.args, **ctx.kwargs)
-    ctx.duration = time.time() - t0
-"""
 
 if __name__ == "__main__":
     model = OpenAiHttpApi("gpt-3.5-turbo")
