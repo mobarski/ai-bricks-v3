@@ -1,6 +1,6 @@
 # TESTING
 
-- [ ] lambda x: for all kwargs (not only model)
+- [ ] chat summary middleware
 
 # ACTIVE
 
@@ -9,6 +9,7 @@
 
 # TODO
 
+- [ ] two local models
 - [ ] outlines like prompts (jinja2) ???
 - [ ] streaming (REF: https://github.com/oobabooga/text-generation-webui/wiki/12-%E2%80%90-OpenAI-API#examples)
 - [ ] parallelism
@@ -36,7 +37,6 @@
 
 - [ ] base url change
 - [ ] anthropics API
-- [ ] two local models
 - [ ] vllm server
 - [ ] mamba models server
 - [ ] oobabooga server
@@ -54,6 +54,7 @@
 
 # DONE
 
+- [x] lambda x: for all kwargs (not only model)
 - [x] logging middleware (sqlite)
 - [x] README: middleware
 - [x] timing

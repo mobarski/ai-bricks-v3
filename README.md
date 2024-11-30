@@ -24,6 +24,7 @@ but with the following differences:
 | **KoboldCpp**  | `koboldcpp:`                  | -                        | GGUF  |
 | **LlamaCpp**   | `llamacpp:`                   | -                        | GGUF  |
 | **tabbyAPI**   | `tabbyapi:`                   | TABBYAPI_API_KEY<br>TABBYAPI_ADMIN_KEY<br>HF_API_TOKEN | EXL2, GPTQ<br>dynamic model downloads<br>dynamic model loading |
+| **dummy**      | `dummy:`                      | -                        |       |
 
 ## License
 

@@ -25,7 +25,7 @@ class OpenAiHttpApi(MiddlewareMixin):
         request = self.run_middleware("request", request)
         request['data'] = json.dumps(data)  # done here to allow data modification
         # -------------------------------
-        raw_resp = requests.post(**request)
+        raw_resp = self.post_request(**request)
         # -------------------------------
         raw_resp = self.run_middleware("raw_response", raw_resp)
         resp = self.parse_response(raw_resp)
@@ -33,6 +33,9 @@ class OpenAiHttpApi(MiddlewareMixin):
         norm_resp = self.normalize_response(resp)
         norm_resp = self.run_middleware("normalized_response", norm_resp)
         return norm_resp
+
+    def post_request(self, **kwargs):
+        return requests.post(**kwargs)
 
     def headers(self):
         return {

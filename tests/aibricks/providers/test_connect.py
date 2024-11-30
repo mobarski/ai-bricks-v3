@@ -15,6 +15,7 @@ def test_online_provider(model_id):
     resp = model.chat_create([{"role": "user", "content": "Tell me a joke."}])
     try:
         content = resp['choices'][0]['message']['content']
+        print(content)
     except KeyError as e:
         print(resp)
         raise e

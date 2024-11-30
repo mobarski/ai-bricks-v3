@@ -3,6 +3,9 @@ from .client import Client
 
 def connect(connection_str, **kwargs):
     provider, model = connection_str.split(":", 1)
+    if provider == "dummy":
+        from .providers.dummy_api import DummyHttpApi
+        return DummyHttpApi(model, **kwargs)
     if provider == "openai":
         from .providers.openai_api import OpenAiHttpApi
         return OpenAiHttpApi(model, **kwargs)
