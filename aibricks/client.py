@@ -4,6 +4,10 @@ class Client:
         self.connect = connect
         self.model = model
         self.kwargs = kwargs
+        self.middleware = []
+
+    def add_middleware(self, middleware):
+        self.middleware.append(middleware)
 
 
 class Chat:
@@ -40,5 +44,7 @@ class ChatCompletions:
             else:
                 kw[k] = self.client.kwargs[k]
 
-        connect = self.client.connect
-        return connect(m).chat_create(messages=messages, **kw)
+        conn = self.client.connect(m)
+        for m in self.client.middleware:
+            conn.add_middleware(m)
+        return conn.chat_create(messages, **kw)
