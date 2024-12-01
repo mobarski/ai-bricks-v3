@@ -11,8 +11,8 @@ import aibricks
     "xai:grok-beta",
 ])
 def test_online_provider(model_id):
-    model = aibricks.connect(model_id)
-    resp = model.chat_create([{"role": "user", "content": "Tell me a joke."}])
+    client = aibricks.connect(model_id)
+    resp = client.chat_create([{"role": "user", "content": "Tell me a joke."}])
     try:
         content = resp['choices'][0]['message']['content']
         print(content)

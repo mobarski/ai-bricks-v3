@@ -9,7 +9,7 @@ from ..middleware import MiddlewareMixin
 # REF:https://platform.openai.com/docs/api-reference/chat/create
 
 
-class OpenAiHttpApi(MiddlewareMixin):
+class OpenAiConnection(MiddlewareMixin):
     api_key_env = "OPENAI_API_KEY"
     api_base_url = "https://api.openai.com/v1"
     provider = "openai"
@@ -79,6 +79,6 @@ class OpenAiHttpApi(MiddlewareMixin):
 
 
 if __name__ == "__main__":
-    model = OpenAiHttpApi("gpt-3.5-turbo")
-    resp = model.chat_create([{"role": "user", "content": "Tell me a joke."}])
+    conn = OpenAiConnection("gpt-3.5-turbo")
+    resp = conn.chat_create([{"role": "user", "content": "Tell me a joke."}])
     print(resp)

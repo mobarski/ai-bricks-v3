@@ -1,57 +1,49 @@
 import json
-import os
 
-import requests
-
-from .openai_api import OpenAiHttpApi
+from .openai_api import OpenAiConnection
 
 
-class TabbyApiHttpApi(OpenAiHttpApi):
-    api_key_env = 'TABBY_API_KEY'
-    admin_key_env = 'TABBY_ADMIN_KEY'
-    hf_api_token_env = 'HF_API_TOKEN'
-    api_base_url = "http://127.0.0.1:5000/v1"
+# REF: https://github.com/theroyallab/tabbyAPI/wiki/API-Reference
+# REF: https://github.com/theroyallab/tabbyAPI/wiki/API-Reference#chat-completion
+# REF: https://github.com/theroyallab/tabbyAPI/wiki/API-Reference#model-management
+class TabbyApiConnection(OpenAiConnection):
+    api_key_env = None
+    api_base_url = "http://localhost:5001/v1"
     provider = "tabbyapi"
 
-    def download_model(self, repo_id, folder_name='', revision='main', **kwargs):
-        data = {
-            "repo_id": repo_id,
-            "folder_name": folder_name,
-            "revision": revision,
-            "token": os.getenv(self.hf_api_token_env),
-            **kwargs
+    def normalized_chat_data(self, messages, **kwargs):
+        data = super().normalized_chat_data(messages, **kwargs)
+        data["messages"] = [{"role": m["role"], "content": m["content"]} for m in messages]
+        return data
+
+    def download_model(self, model, revision=None):
+        data = {"name": model}
+        if revision:
+            data["revision"] = revision
+        request = {
+            "url": f"{self.api_base_url}/model/download",
+            "headers": self.headers(),
+            "data": json.dumps(data),
         }
-        raw_resp = requests.post(
-            url=f"{self.api_base_url}/download",
-            headers={
-                "x-admin-key": os.getenv(self.admin_key_env),
-                "Content-Type": "application/json",
-            },
-            data=json.dumps(data),
-        )
+        raw_resp = self.post_request(**request)
         return raw_resp.json()
 
-    def load_model(self, model_name, **kwargs):
-        data = {
-            "model_name": model_name,
-            **kwargs
+    def load_model(self, model):
+        data = {"name": model}
+        request = {
+            "url": f"{self.api_base_url}/model/load",
+            "headers": self.headers(),
+            "data": json.dumps(data),
         }
-        raw_resp = requests.post(
-            url=f"{self.api_base_url}/model/load",
-            headers={
-                "x-admin-key": os.getenv(self.admin_key_env),
-                "Content-Type": "application/json",
-            },
-            data=json.dumps(data),
-        )
-        return raw_resp # TODO: cannot pare response - problem on the server side
+        raw_resp = self.post_request(**request)
+        return raw_resp.json()
 
 
 if __name__ == "__main__":
-    model = TabbyApiHttpApi(None)
-    resp = model.chat_create([{"role": "user", "content": "Tell me a joke."}])
+    conn = TabbyApiConnection(None)
+    resp = conn.chat_create([{"role": "user", "content": "Tell me a joke."}])
     print(resp)
-    resp = model.download_model("lucyknada/Qwen_Qwen2.5-Coder-0.5B-Instruct-exl2", revision="4.0bpw")
+    resp = conn.download_model("lucyknada/Qwen_Qwen2.5-Coder-0.5B-Instruct-exl2", revision="4.0bpw")
     print(resp)
-    resp = model.load_model("Qwen_Qwen2.5-Coder-0.5B-Instruct-exl2")
+    resp = conn.load_model("Qwen_Qwen2.5-Coder-0.5B-Instruct-exl2")
     print(resp)

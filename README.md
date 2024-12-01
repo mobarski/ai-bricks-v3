@@ -78,7 +78,7 @@ client = aibricks.client()
 
 # add those 4 lines to create the illusion of an infinite context!
 ctx = {}
-aux_client = aibricks.client('openai:gpt-4o-mini')
+aux_client = aibricks.client('google:gemini-1.5-flash-8b') # $0.0375 per 1M toknes
 summary_middleware = ChatSummaryMiddleware(ctx, aux_client, max_in_context_chars=12000)
 client.add_middleware(summary_middleware)
 
@@ -100,9 +100,9 @@ class TimingMiddleware(MiddlewareBase):
         return data
 
 ctx = {}
-model = aibricks.connect('openrouter:qwen/qwen-2.5-coder-32b-instruct')
-model.add_middleware(TimingMiddleware(ctx))
-resp = model.chat_create([{'role': 'user', 'content': 'Tell me a joke.'}])
+client = aibricks.connect('openrouter:qwen/qwen-2.5-coder-32b-instruct')
+client.add_middleware(TimingMiddleware(ctx))
+resp = client.chat_create([{'role': 'user', 'content': 'Tell me a joke.'}])
 print(ctx)
 ```
 
