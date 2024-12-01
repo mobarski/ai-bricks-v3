@@ -56,7 +56,7 @@ print(resp)
 # parameter overriding example
 client = aibricks.client(
     # any parameter can have a default value
-    temperature=0.7, # default value
+    temperature=0.7,
     # or can be overridden by a lambda taking the original value
     model=lambda x: 'openrouter:qwen/qwen-2.5-coder-32b-instruct',
 )
@@ -73,21 +73,37 @@ print(resp)
 ## How to use middleware
 
 ```python
+# initialize OpenAI compatible client as usual
+client = aibricks.client()
+
+# add those 4 lines to create the illusion of an infinite context!
+ctx = {}
+aux_client = aibricks.client('openai:gpt-4o-mini')
+summary_middleware = ChatSummaryMiddleware(ctx, aux_client, max_in_context_chars=12000)
+client.add_middleware(summary_middleware)
+
+# use the client as usual
+resp = client.chat.completions.create(...)
+```
+
+## How to create middleware
+
+```python
 class TimingMiddleware(MiddlewareBase):
 
-    def request(self, data):
-        self.ctx.start = time.perf_counter()
+    def request(self, data, ctx):
+        ctx["start"] = time.perf_counter()
         return data
 
-    def response(self, data):
-        self.ctx.duration = time.perf_counter() - self.ctx.start
+    def response(self, data, ctx):
+        ctx["duration"] = time.perf_counter() - ctx["start"]
         return data
 
-ctx = SimpleNamespace() # you can also use dataclass or pydantic.BaseModel
+ctx = {}
 model = aibricks.connect('openrouter:qwen/qwen-2.5-coder-32b-instruct')
 model.add_middleware(TimingMiddleware(ctx))
 resp = model.chat_create([{'role': 'user', 'content': 'Tell me a joke.'}])
-print(f'{ctx.duration=}')
+print(ctx)
 ```
 
 ## How to test

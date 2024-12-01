@@ -3,14 +3,14 @@ from types import SimpleNamespace
 
 class MiddlewareBase:
 
-    def __init__(self, ctx: SimpleNamespace | object):
+    def __init__(self, ctx: dict):
         self.ctx = ctx
         self.parent = None
 
-    def request(self, data):
+    def request(self, data, ctx):
         return data
 
-    def response(self, data):
+    def response(self, data, ctx):
         return data
 
     # other events can be added
@@ -26,5 +26,5 @@ class MiddlewareMixin:
     def run_middleware(self, event, data):
         for m in self.middleware:
             if hasattr(m, event):
-                data = getattr(m, event)(data)
+                data = getattr(m, event)(data, m.ctx)
         return data

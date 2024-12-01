@@ -14,11 +14,11 @@ from aibricks.middleware import TimingMiddleware
     "xai:grok-beta",
 ])
 def test_online_provider(model_id):
-    ctx = SimpleNamespace()
-    model = aibricks.connect(model_id)
-    model.add_middleware(TimingMiddleware(ctx))
-    resp = model.chat_create([{"role": "user", "content": "Tell me a joke."}])
-    print('middleware-duration:', model_id, ctx.duration)
+    ctx = {}
+    client = aibricks.connect(model_id)
+    client.add_middleware(TimingMiddleware(ctx))
+    resp = client.chat_create([{"role": "user", "content": "Tell me a joke."}])
+    print(model_id, ctx)
     try:
         content = resp['choices'][0]['message']['content']
     except KeyError as e:

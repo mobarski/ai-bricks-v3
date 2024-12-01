@@ -1,14 +1,19 @@
 # TESTING
 
 - [ ] chat summary middleware
+- [ ] test middleware with client.chat.completions.create
 
 # ACTIVE
+
+
+# PAUSED
 
 - [ ] server (to act as provider)
 - [ ] config (yaml + string.Template)
 
 # TODO
 
+- [ ] add config to middleware call args
 - [ ] two local models
 - [ ] outlines like prompts (jinja2) ???
 - [ ] streaming (REF: https://github.com/oobabooga/text-generation-webui/wiki/12-%E2%80%90-OpenAI-API#examples)
@@ -54,6 +59,8 @@
 
 # DONE
 
+- [x] change context type to dict
+- [x] add context to middleware call args (to make code prettier)
 - [x] lambda x: for all kwargs (not only model)
 - [x] logging middleware (sqlite)
 - [x] README: middleware

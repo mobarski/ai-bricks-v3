@@ -14,12 +14,12 @@ from aibricks.middleware import ChatSummaryMiddleware
     "xai:grok-beta",
 ])
 def test_online_provider(model_id):
-    ctx = SimpleNamespace(summary='')
-    llm_client = aibricks.connect(model_id)
-    model = aibricks.connect('dummy:')
-    summary_middleware = ChatSummaryMiddleware(ctx, llm_client, max_in_context_chars=20)
-    model.add_middleware(summary_middleware)
-    resp = model.chat_create([
+    ctx = {}
+    aux_client = aibricks.connect(model_id)
+    client = aibricks.connect('dummy:')
+    summary_middleware = ChatSummaryMiddleware(ctx, aux_client, max_in_context_chars=20)
+    client.add_middleware(summary_middleware)
+    resp = client.chat_create([
         {"role": "user", "content": "Tell me a joke."},
         {"role": "assistant", "content": '''Why did the scarecrow win an award?\n\nBecause he was outstanding in his field!'''},
         {"role": "user", "content": "Tell me a joke."},
@@ -32,4 +32,4 @@ def test_online_provider(model_id):
         {"role": "assistant", "content": '''Why don't scientists trust atoms?\n\nBecause they make up everything!'''},
     ])
     print(resp)
-    print(f'{ctx.summary=}')
+    print(ctx)

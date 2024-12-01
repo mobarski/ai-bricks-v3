@@ -1,4 +1,3 @@
-from types import SimpleNamespace
 from aibricks.middleware import MiddlewareBase
 
 
@@ -9,22 +8,24 @@ class ChatSummaryMiddleware(MiddlewareBase):
     SUMMARY_LENGTH_RATIO = 0.25
 
     def __init__(self,
-                 ctx: SimpleNamespace | object,
+                 ctx: dict,
                  llm_client,
                  max_in_context_chars=DEFAULT_MAX_CONTEXT_CHARS):
         super().__init__(ctx)
         self.llm_client = llm_client
         self.first_msg_idx = 0
         self.max_in_context_chars = max_in_context_chars
-        self.current_summary = ''
+        if 'summary' not in ctx:
+            ctx['summary'] = ''
+        self.current_summary = ctx['summary']
         self.debug = False
 
     # Main request handling
     # ---------------------
-    def request(self, data):
+    def request(self, data, ctx):
         messages = data['data']['messages']
         data['data']['messages'] = self.insert_summary(messages)
-        self.ctx.summary = self.current_summary
+        ctx['summary'] = self.current_summary
         return data
 
     def insert_summary(self, messages: list[dict]) -> list[dict]:

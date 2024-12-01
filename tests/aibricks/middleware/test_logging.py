@@ -15,10 +15,10 @@ from aibricks.middleware import LoggingMiddleware
     "xai:grok-beta",
 ])
 def test_online_provider(model_id):
-    ctx = SimpleNamespace()
+    ctx = {}
     db = sqlite3.connect(":memory:")
-    model = aibricks.connect(model_id)
-    model.add_middleware(LoggingMiddleware(ctx, db=db))
-    _ = model.chat_create([{"role": "user", "content": "Tell me a joke."}])
+    client = aibricks.connect(model_id)
+    client.add_middleware(LoggingMiddleware(ctx, db=db))
+    _ = client.chat_create([{"role": "user", "content": "Tell me a joke."}])
     rows = db.execute("SELECT * FROM logs").fetchall()
     print(rows)

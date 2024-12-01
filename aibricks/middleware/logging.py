@@ -1,4 +1,3 @@
-from types import SimpleNamespace
 import time
 import json
 
@@ -7,7 +6,7 @@ from aibricks.middleware import MiddlewareBase
 
 class LoggingMiddleware(MiddlewareBase):
 
-    def __init__(self, ctx: SimpleNamespace | object, db):
+    def __init__(self, ctx: dict, db):
         super().__init__(ctx)
         self.db = db
         self.db.execute("""
@@ -21,15 +20,15 @@ class LoggingMiddleware(MiddlewareBase):
                 response_ts
             )""")
 
-    def request(self, data):
-        self.ctx.request = data.copy()  # allow obfuscation
-        self.ctx.request['headers'] = 'OBFUSCATED'
-        self.ctx.request_ts = time.time()
+    def request(self, data, ctx):
+        ctx['request'] = data.copy()  # allow obfuscation
+        ctx['request']['headers'] = 'OBFUSCATED'
+        ctx['request_ts'] = time.time()
         return data
 
-    def response(self, data):
-        self.ctx.response = data
-        self.ctx.response_ts = time.time()
+    def response(self, data, ctx):
+        ctx['response'] = data
+        ctx['response_ts'] = time.time()
         #
         sql = """
             INSERT INTO logs (provider, model, request_json, request_ts, response_json, response_ts)
@@ -38,10 +37,10 @@ class LoggingMiddleware(MiddlewareBase):
         self.db.execute(sql, (
             self.parent.provider,
             self.parent.model,
-            json.dumps(self.ctx.request),
-            self.ctx.request_ts,
-            json.dumps(self.ctx.response),
-            self.ctx.response_ts
+            json.dumps(ctx['request']),
+            ctx['request_ts'],
+            json.dumps(ctx['response']),
+            ctx['response_ts']
         ))
         self.db.commit()
         return data
