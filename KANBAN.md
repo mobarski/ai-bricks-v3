@@ -5,18 +5,19 @@
 
 # ACTIVE
 
+- [ ] config (yaml + jinja2)
 
 # PAUSED
 
 - [ ] server (to act as provider)
-- [ ] config (yaml + string.Template)
 
 # TODO
+
+- [ ] streaming (REF: https://github.com/oobabooga/text-generation-webui/wiki/12-%E2%80%90-OpenAI-API#examples)
 
 - [ ] add config to middleware call args
 - [ ] two local models
 - [ ] outlines like prompts (jinja2) ???
-- [ ] streaming (REF: https://github.com/oobabooga/text-generation-webui/wiki/12-%E2%80%90-OpenAI-API#examples)
 - [ ] parallelism
 
 - [ ] structured output (openai)

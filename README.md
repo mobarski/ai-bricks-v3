@@ -5,9 +5,10 @@ Simple, unified interface to multiple Generative AI providers and local model se
 This project is similar in scope to [AISuite](https://github.com/andrewyng/aisuite),
 but with the following differences:
 - stronger support for local model servers (**tabbyAPI**, **KoboldCpp**, **LMStudio**, **Ollama**, ...)
-- focused on improving your application without having to change your code
+- focus on improving your application without having to change your code
 - middleware for logging, usage tracking, styling, etc
-- minimal dependencies (*requests*, *pyyaml*)
+- configuration driven approach
+- minimal dependencies (*requests*, *pyyaml*, *jinja2*)
 
 
 ## Supported providers
