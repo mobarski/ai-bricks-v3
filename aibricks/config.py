@@ -26,7 +26,7 @@ class Config:
         _dict = _dict or self.data
         if not key:  # base case - we've consumed all parts
             return _dict
-        
+
         head, _, tail = key.partition('.')
         if head in _dict:
             if isinstance(_dict[head], dict):
@@ -57,7 +57,8 @@ def load_config(path) -> Config:
 
 
 def load_all_configs() -> dict[str, Config]:
-    return {k: load_config(v) for k, v in CONFIG_PATH.items()}
+    configs = {k: load_config(v) for k, v in CONFIG_PATH.items()}
+    return merge_configs(configs)
 
 
 # TODO: design logic for this
@@ -97,12 +98,9 @@ def handle_include(cfg, path):
     return cfg
 
 
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-_cfg = merge_configs(load_all_configs())
+_cfg = load_all_configs()
 
 
 if __name__ == "__main__":
     from pprint import pprint
-    configs = load_all_configs()
-    pprint(configs)
-
+    pprint(_cfg)
