@@ -1,9 +1,0 @@
-variables:
-  MODEL_NAME: gpt-4
-  API_KEY: ${OPENAI_API_KEY}
-  BASE_URL: https://api.openai.com/v1
-
-model:
-  name: ${MODEL_NAME}
-  api_key: ${API_KEY}
-  url: ${BASE_URL}/chat/completions
