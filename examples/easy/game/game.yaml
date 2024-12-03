@@ -15,12 +15,9 @@ templates:
     Use propper names in placeholders like {{char}} and {{user}}.
     Do not answer as the player character, never!
     Output only text, no markdown other than described.
-
     {% include 'character_prompt' %}
 
-
 characters:
-
   marcus:
     name: Marcus, the Alien Tech Merchant
     personality: >
