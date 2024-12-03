@@ -2,9 +2,6 @@ import os
 import sys; sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../")))
 import aibricks
 
-import rich
-import re
-
 os.chdir(os.path.dirname(__file__)) # kind of ugly
 cfg = aibricks.load_config("./game.yaml")
 
