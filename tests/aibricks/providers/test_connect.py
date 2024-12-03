@@ -7,8 +7,9 @@ import aibricks
     "openai:gpt-4o-mini",
     "openrouter:meta-llama/llama-3.2-1b-instruct:free",
     "google:gemini-1.5-flash-8b",
-    "arliai:Mistral-Nemo-12B-Instruct-2407",
     "xai:grok-beta",
+    "togetherai:meta-llama/Meta-Llama-3-8B-Instruct-Turbo",
+    "arliai:Mistral-Nemo-12B-Instruct-2407",
 ])
 def test_online_provider(model_id):
     client = aibricks.connect(model_id)

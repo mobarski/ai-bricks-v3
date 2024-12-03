@@ -4,6 +4,7 @@ import aibricks
 
 
 @pytest.mark.parametrize("model_id", [
+    "togetherai:meta-llama/Meta-Llama-3-8B-Instruct-Turbo",
     "openai:gpt-4o-mini",
     "openrouter:meta-llama/llama-3.2-1b-instruct:free",
     "google:gemini-1.5-flash-8b",
