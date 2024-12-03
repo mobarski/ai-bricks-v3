@@ -4,7 +4,7 @@ from .providers import (
     TabbyApiConnection, ArliAiConnection, XaiConnection,
     LlamaCppConnection, KoboldCppConnection, LmStudioConnection,
     HuggingFaceConnection, GoogleConnection, OllamaConnection,
-    TogetherAiConnection,
+    TogetherConnection,
 )
 
 
@@ -34,8 +34,8 @@ def connect(connection_str, **kwargs):
         return GoogleConnection(model, **kwargs)
     if provider == "ollama":
         return OllamaConnection(model, **kwargs)
-    if provider == "togetherai":
-        return TogetherAiConnection(model, **kwargs)
+    if provider == "together":
+        return TogetherConnection(model, **kwargs)
     raise ValueError(f"Unknown provider: {provider}")
 
 

@@ -47,4 +47,7 @@ class ChatCompletions:
         conn = self.client.connect(m)
         for m in self.client.middleware:
             conn.add_middleware(m)
-        return conn.chat_create(messages, **kw)
+        if kw.get('stream'):
+            return conn.chat_create_stream(messages, **kw)
+        else:
+            return conn.chat_create(messages, **kw)

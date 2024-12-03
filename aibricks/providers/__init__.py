@@ -10,4 +10,4 @@ from .lmstudio_api import LmStudioConnection
 from .huggingface_api import HuggingFaceConnection
 from .google_api import GoogleConnection
 from .ollama_api import OllamaConnection
-from .togetherai_api import TogetherAiConnection
+from .together_api import TogetherConnection
