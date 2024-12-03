@@ -7,6 +7,7 @@ from .providers import (
     TogetherConnection,
 )
 
+from .config import load_config, load_configs
 
 def connect(connection_str, **kwargs):
     provider, model = connection_str.split(":", 1)

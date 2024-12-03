@@ -53,8 +53,6 @@ class Config:
 
 
 def load_config(path) -> Config:
-    if not os.path.exists(path):
-        return Config({})
     with open(path, 'r') as f:
         cfg = yaml.load(f, Loader=yaml.Loader) or {}
     cfg = handle_include(cfg, path)
