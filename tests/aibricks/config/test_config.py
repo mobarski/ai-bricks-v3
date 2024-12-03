@@ -25,7 +25,6 @@ def test_include_config():
 
 def test_template_rendering():
     cfg = load_config(os.path.join(TEST_DATA_DIR, 'base.yaml'))
-    text = cfg.lookup('templates.system_prompt')
-    rendered = cfg.render(text, name='TestBot', temperature=0.8)
+    rendered = cfg.render('system_prompt', name='TestBot', role='coding assistant')
     assert 'You are an AI assistant named TestBot' in rendered
-    assert 'Temperature is set to 0.8' in rendered
+    assert 'Your role is: coding assistant' in rendered

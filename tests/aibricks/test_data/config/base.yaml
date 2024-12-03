@@ -10,4 +10,4 @@ api:
 templates:
   system_prompt: |
     You are an AI assistant named {{name}}.
-    Temperature is set to {{temperature}}.
+    Your role is: {{role}}

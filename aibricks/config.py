@@ -28,7 +28,7 @@ class Config:
         _dict = _dict or self.data
         if not key:  # base case - we've consumed all parts
             return _dict
-        
+
         head, _, tail = key.partition('.')
         if head in _dict:
             if isinstance(_dict[head], dict):
@@ -44,7 +44,10 @@ class Config:
         else:
             raise KeyError(key)
 
-    def render(self, text, **kwargs):
+    def render(self, key, **kwargs):
+        text = self.lookup('templates.'+key)
+        if not text:
+            raise KeyError(f'Template {key} not found or not a string')
         template = self.jinja2_env.from_string(text)
         return template.render(**kwargs)
 
