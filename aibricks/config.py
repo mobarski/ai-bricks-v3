@@ -1,19 +1,18 @@
 import os
-import string
+from functools import singledispatch
 
 import yaml
 import jinja2
 
+
 # TODO: from environmental variables ???
-# TODO: better names
-# TODO: conver to list as the key is irrelevant ???
-CONFIG_PATH = {
-    'package': os.path.join(os.path.dirname(__file__), 'aibricks.yaml'),
-    'system': '/etc/aibricks.yaml',
-    'user': '~/.config/aibricks.yaml',
-    'project': './aibricks.yaml'
-}
-MAX_ITERATIONS = 10
+def get_default_config_paths() -> list[str]:
+    return [
+        os.path.join(os.path.dirname(__file__), 'aibricks.yaml'),  # package
+        '/etc/aibricks.yaml',                                      # system
+        '~/.config/aibricks.yaml',                                 # user
+        './aibricks.yaml'                                          # project
+    ]
 
 
 class Config:
@@ -22,11 +21,14 @@ class Config:
         self.jinja2_env = jinja2.Environment(loader=loader)
         self.data = data
 
+    def __repr__(self):
+        return f'Config({self.data})'
+
     def lookup(self, key, default=..., _dict=None):
         _dict = _dict or self.data
         if not key:  # base case - we've consumed all parts
             return _dict
-
+        
         head, _, tail = key.partition('.')
         if head in _dict:
             if isinstance(_dict[head], dict):
@@ -56,18 +58,19 @@ def load_config(path) -> Config:
     return Config(cfg)
 
 
-def load_all_configs() -> dict[str, Config]:
-    configs = {k: load_config(v) for k, v in CONFIG_PATH.items()}
-    return merge_configs(configs)
+def load_configs(config_paths: list[str] = None) -> list[Config]:
+    paths = config_paths if config_paths is not None else get_default_config_paths()
+    return [load_config(path) for path in paths]
 
 
 # TODO: design logic for this
-def merge_configs(configs: dict[str, Config]) -> dict:
+def merge_configs(configs: list[Config]) -> Config:
+    """Merge configs with later configs taking precedence"""
     result = {}
-    for config in configs.values():
+    for config in reversed(configs):  # Explicit precedence order
         if config.data:
             result.update(config.data)
-    return result
+    return Config(result)
 
 
 def handle_include(cfg, path):
@@ -98,9 +101,8 @@ def handle_include(cfg, path):
     return cfg
 
 
-_cfg = load_all_configs()
-
-
 if __name__ == "__main__":
-    from pprint import pprint
-    pprint(_cfg)
+    cfgs = load_configs()
+    print(cfgs)
+    cfg = merge_configs(cfgs)
+    print(cfg)
