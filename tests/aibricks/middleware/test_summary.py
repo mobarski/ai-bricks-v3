@@ -15,9 +15,9 @@ from aibricks.middleware import ChatSummaryMiddleware
 ])
 def test_online_provider(model_id):
     ctx = {}
-    aux_client = aibricks.connect(model_id)
+    aux_connection = aibricks.connect(model_id)
     client = aibricks.connect('dummy:')
-    summary_middleware = ChatSummaryMiddleware(ctx, aux_client, max_in_context_chars=20)
+    summary_middleware = ChatSummaryMiddleware(ctx, aux_connection, max_in_context_chars=20)
     client.add_middleware(summary_middleware)
     resp = client.chat_create([
         {"role": "user", "content": "Tell me a joke."},

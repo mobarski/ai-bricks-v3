@@ -6,14 +6,13 @@
 # ACTIVE
 
 - [ ] config (yaml + jinja2)
+- [ ] streaming (REF: https://github.com/oobabooga/text-generation-webui/wiki/12-%E2%80%90-OpenAI-API#examples)
 
 # PAUSED
 
 - [ ] server (to act as provider)
 
 # TODO
-
-- [ ] streaming (REF: https://github.com/oobabooga/text-generation-webui/wiki/12-%E2%80%90-OpenAI-API#examples)
 
 - [ ] add config to middleware call args
 - [ ] two local models

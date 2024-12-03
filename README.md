@@ -77,10 +77,9 @@ print(resp)
 # initialize OpenAI compatible client as usual
 client = aibricks.client()
 
-# add those 4 lines to create the illusion of an infinite context!
+# add 3 lines to create the illusion of an infinite context
 ctx = {}
-aux_client = aibricks.client('google:gemini-1.5-flash-8b') # $0.0375 per 1M toknes
-summary_middleware = ChatSummaryMiddleware(ctx, aux_client, max_in_context_chars=12000)
+summary_middleware = ChatSummaryMiddleware(ctx, max_in_context_chars=12000)
 client.add_middleware(summary_middleware)
 
 # use the client as usual

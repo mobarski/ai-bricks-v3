@@ -9,10 +9,10 @@ class ChatSummaryMiddleware(MiddlewareBase):
 
     def __init__(self,
                  ctx: dict,
-                 llm_client,
+                 connection=None,
                  max_in_context_chars=DEFAULT_MAX_CONTEXT_CHARS):
         super().__init__(ctx)
-        self.llm_client = llm_client
+        self.connection = connection
         self.first_msg_idx = 0
         self.max_in_context_chars = max_in_context_chars
         if 'summary' not in ctx:
@@ -69,7 +69,8 @@ class ChatSummaryMiddleware(MiddlewareBase):
         if self.debug:
             print(f'\n\ncreate_summary request: {summary_request=}')
 
-        response = self.llm_client.chat_create(messages=summary_request)
+        conn = self.connection or self.parent
+        response = conn.chat_create(messages=summary_request)
         return response['choices'][0]['message']['content']
 
     # Message formatting

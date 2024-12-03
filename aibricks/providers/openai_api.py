@@ -34,6 +34,30 @@ class OpenAiConnection(MiddlewareMixin):
         norm_resp = self.run_middleware("normalized_response", norm_resp)
         return norm_resp
 
+    # WIP
+    def chat_create_stream(self, messages, **kwargs):
+        data = self.normalized_chat_data(messages, **kwargs)
+        request = self.normalized_chat_request(data)
+        request = self.run_middleware("request", request)
+        request['data'] = json.dumps(data)  # done here to allow data modification
+        # -------------------------------
+        raw_resp = self.post_request(**request)
+        for line in raw_resp.iter_lines():
+            line = line.decode("utf-8").strip()
+            if line == "data: [DONE]":
+                break
+            if not line:
+                continue
+            if line.startswith("data:"):
+                raw_data = line[5:]
+                resp = json.loads(raw_data)
+                #resp = self.parse_response(raw_data)
+                #resp = self.run_middleware("response", resp)
+                #norm_resp = self.normalize_response(resp)
+                #norm_resp = self.run_middleware("normalized_response", norm_resp)
+                yield resp
+            
+
     def post_request(self, **kwargs):
         return requests.post(**kwargs)
 
