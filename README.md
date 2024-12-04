@@ -134,7 +134,7 @@ pytest tests/aibricks/middleware/
 - [worldgen](examples/easy/worldgen/) - simple, hierarchical world generation (based on [this lesson](https://learn.deeplearning.ai/courses/building-an-ai-powered-game/lesson/2/hierarchical-content-generation))
   - [v1](examples/easy/worldgen/v1.py) as simple as it gets 🚧
   - [v2](#TODO) ~~adds ability to use images for the inspiration~~
-- [codegen](examples/easy/codegen/) - ~~simple code generation for tiny web apps~~
+- [codegen](examples/easy/codegen/) - simple code generation for tiny web apps
   - [v1](#TODO) ~~as simple as it gets~~
   - [v2](#TODO) ~~adds UI designer role~~
 
