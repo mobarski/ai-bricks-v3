@@ -22,11 +22,11 @@ but with the following differences:
 | **XAI**        | `xai:grok-beta`               | XAI_API_KEY              |       |
 | **Together**   | `together:meta-llama/Meta-Llama-3-8B-Instruct-Turbo` | TOGETHER_API_KEY |  |
 | **Ollama**     | `ollama:qwen2.5-coder:7b`     | -                        | GGUF  |
-| **LMStudio**   | `lmstudio:`                   | -                        | GGUF  |
-| **KoboldCpp**  | `koboldcpp:`                  | -                        | GGUF  |
-| **LlamaCpp**   | `llamacpp:`                   | -                        | GGUF  |
-| **tabbyAPI**   | `tabbyapi:`                   | TABBYAPI_API_KEY<br>TABBYAPI_ADMIN_KEY<br>HF_API_TOKEN | EXL2, GPTQ<br>dynamic model downloads<br>dynamic model loading |
-| **dummy**      | `dummy:`                      | -                        |       |
+| **LMStudio**   | `lmstudio:qwen2.5-14b-instruct` | -                      | GGUF<br>dynamic model loading |
+| **KoboldCpp**  | `koboldcpp`                   | -                        | GGUF  |
+| **LlamaCpp**   | `llamacpp`                    | -                        | GGUF  |
+| **tabbyAPI**   | `tabbyapi`                    | TABBYAPI_API_KEY<br>TABBYAPI_ADMIN_KEY<br>HF_API_TOKEN | EXL2, GPTQ<br>dynamic model downloads<br>dynamic model loading |
+| **dummy**      | `dummy`                       | -                        |       |
 
 ## License
 
@@ -130,13 +130,13 @@ pytest tests/aibricks/middleware/
 - [game](examples/easy/game/) - simple "chat with a character", nice stepping stone for building rpg/adventure games
   - [v1](examples/easy/game/v1.py) as simple as it gets
   - [v2](#TODO) adds "infinite context" and colors
-  - [v3](#TODO) adds save/load/undo functionality
-- [worldgen](examples/easy/worldgen/) - simple, hierarchical world generation
-  - [v1](#TODO) as simple as it gets
-  - [v2](#TODO) adds ability to use images for the inspiration
-- [codegen](examples/easy/codegen/) - simple code generation for tiny web apps
-  - [v1](#TODO) as simple as it gets
-  - [v2](#TODO) adds UI designer role
+  - [v3](#TODO) ~~adds save/load/undo functionality~~
+- [worldgen](examples/easy/worldgen/) - simple, hierarchical world generation (based on [this lesson](https://learn.deeplearning.ai/courses/building-an-ai-powered-game/lesson/2/hierarchical-content-generation))
+  - [v1](examples/easy/worldgen/v1.py) as simple as it gets 🚧
+  - [v2](#TODO) ~~adds ability to use images for the inspiration~~
+- [codegen](examples/easy/codegen/) - ~~simple code generation for tiny web apps~~
+  - [v1](#TODO) ~~as simple as it gets~~
+  - [v2](#TODO) ~~adds UI designer role~~
 
 ## Planned features
 

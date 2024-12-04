@@ -1,0 +1,94 @@
+parameters:
+  genre: space-opera
+  concept: take inspiration from WH40k, Dune, Fading Suns
+  #model: openrouter:sao10k/l3.1-euryale-70b
+  model: lmstudio:qwen2.5-14b-instruct
+  description_length: 3-5 sentences
+
+templates:
+  system_prompt: |
+    Your job is to help create interesting {{ genre }} worlds
+    that players would love to play in.
+
+    Instructions:
+    - Only generate in plain text without formatting.
+    - Use simple clear language without being flowery.
+    - You must stay below {{ description_length }} for each description.
+  
+  world_prompt: |
+    Generate a creative description for a unique {{ genre }} world
+    with an interesting concept: {{ concept }}.
+
+    Output content in the following XML tags:
+    <WORLD>
+    <NAME>name</NAME>
+    <DESCRIPTION>description</DESCRIPTION>
+    </WORLD>
+  
+  kingdom_prompt: |
+    Create 3 different kingdoms for this world.
+    For each kingdom generate a description based on the world it's in. \
+    Describe important leaders, cultures, history of the kingdom.
+
+    Output content in the following XML tags:
+    <KINGDOMS>
+    <KINGDOM>
+    <NAME>name</NAME>
+    <DESCRIPTION>description</DESCRIPTION>
+    </KINGDOM>
+    ...
+    </KINGDOMS>
+  
+  town_prompt: |
+    Create 3 different towns for kingdom {{ kingdom.name }}.
+    Describe the region it's in, important places of the town, \
+    and interesting history about it.
+    
+    Output content in the following XML tags:
+    <TOWNS>
+    <TOWN>
+    <NAME>name</NAME>
+    <DESCRIPTION>description</DESCRIPTION>
+    </TOWN>
+    ...
+    </TOWNS>
+
+  npc_prompt: |
+    Create 3 different characters based on the world, kingdom \
+    and town they're in. Describe the character's appearance and \
+    profession, as well as their deeper pains and desires. \
+    Mention any organizations they're part of.
+    
+    Output content in the form:
+    Character 1 Name: <CHARACTER NAME>
+    Character 1 Description: <CHARACTER DESCRIPTION>
+    Character 2 Name: <CHARACTER NAME>
+    Character 2 Description: <CHARACTER DESCRIPTION>
+    Character 3 Name: <CHARACTER NAME>
+    Character 3 Description: <CHARACTER DESCRIPTION>
+
+    Output content in the following XML tags:
+    <NPCS>
+    <NPC>
+    <NAME>name</NAME>
+    <DESCRIPTION>description</DESCRIPTION>
+    </NPC>
+    ...
+    </NPCS>
+
+# NOT WORKING AS EXPECTED
+macros:
+  xml_dict: |
+    {%- macro xml_dict(tag) -%}
+    <{{ tag }}>
+    <NAME>name</NAME>
+    <DESCRIPTION>description</DESCRIPTION>
+    </{{ tag }}>
+    {%- endmacro -%}
+  xml_list: |
+    {%- macro xml_list(tag) -%}
+    <{{ tag }}S>
+    {{ xml_dict(tag) }}
+    ...
+    </{{ tag }}S>
+    {%- endmacro -%}

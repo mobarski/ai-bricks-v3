@@ -9,8 +9,14 @@ from .providers import (
 
 from .config import load_config, load_configs
 
+
 def connect(connection_str, **kwargs):
-    provider, model = connection_str.split(":", 1)
+    if ':' in connection_str:
+        provider, model = connection_str.split(":", 1)
+    else:
+        provider = connection_str
+        model = None
+
     if provider == "dummy":
         return DummyConnection(model, **kwargs)
     if provider == "openai":
