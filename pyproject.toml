@@ -8,8 +8,14 @@ requires-python = ">=3.12"
 dependencies = [
     "jinja2>=3.1.4",
     "requests>=2.32.3",
+    "pyyaml>=6.0.2",
+
 ]
 
 [project.optional-dependencies]
 test = ["pytest>=8.0.0"]
-config = ["pyyaml>=6.0.2"]
+examples = ["rich>=13.0.0"]
+
+[project.urls]
+Homepage = "https://github.com/mobarski/ai-bricks-v3"
+Repository = "https://github.com/mobarski/ai-bricks-v3.git"

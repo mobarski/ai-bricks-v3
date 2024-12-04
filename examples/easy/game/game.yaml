@@ -16,6 +16,10 @@ templates:
     Do not answer as the player character, never!
     Output only text, no markdown other than described.
     {% include 'character_prompt' %}
+    <SCENARIO>
+    {{ character.scenario }}
+    </SCENARIO>
+    Assume {{char}} just said: {{ character.first_message }}
 
 characters:
   marcus:
