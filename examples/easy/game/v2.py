@@ -28,5 +28,5 @@ while True:
     user_text = input("You: ")
     messages += [{'role': 'user', 'content': user_text}]
     response = client.chat.completions.create(model='lmstudio:', messages=messages)
-    ai_text = response['choices'][0]['message']['content']
+    ai_text = response.choices[0].message.content
     print(ai_text)  # TODO: style text

@@ -1,5 +1,4 @@
 import os
-import pytest
 from aibricks.config import load_config
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'test_data/config')

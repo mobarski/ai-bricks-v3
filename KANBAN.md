@@ -2,11 +2,13 @@
 
 - [ ] chat summary middleware
 - [ ] test middleware with client.chat.completions.create
-- [ ] game example
+- [ ] game example v1
 - [ ] config (yaml + jinja2)
 - [ ] streaming (REF: https://github.com/oobabooga/text-generation-webui/wiki/12-%E2%80%90-OpenAI-API#examples)
 
 # ACTIVE
+
+- [ ] DictNamespace for config and responses
 
 
 # PAUSED
@@ -15,7 +17,6 @@
 
 # TODO
 
-- [ ] DotDict for config and responses
 - [ ] streaming middleware
 - [ ] add config to middleware call args
 - [ ] two local models

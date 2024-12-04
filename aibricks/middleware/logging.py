@@ -39,7 +39,7 @@ class LoggingMiddleware(MiddlewareBase):
             self.parent.model,
             json.dumps(ctx['request']),
             ctx['request_ts'],
-            json.dumps(ctx['response']),
+            json.dumps(ctx['response'].to_dict()),
             ctx['response_ts']
         ))
         self.db.commit()

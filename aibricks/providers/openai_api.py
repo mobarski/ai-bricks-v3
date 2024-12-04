@@ -4,6 +4,7 @@ import os
 import requests
 
 from ..middleware import MiddlewareMixin
+from ..namespace import DictNamespace
 
 # REF: https://github.com/andrewyng/aisuite/blob/main/aisuite/providers/openai_provider.py
 # REF:https://platform.openai.com/docs/api-reference/chat/create
@@ -54,7 +55,7 @@ class OpenAiConnection(MiddlewareMixin):
                 #resp = self.run_middleware("response", resp)
                 #norm_resp = self.normalize_response(resp)
                 #norm_resp = self.run_middleware("normalized_response", norm_resp)
-                yield resp
+                yield DictNamespace(resp)
 
 
     def post_request(self, **kwargs):
@@ -93,12 +94,12 @@ class OpenAiConnection(MiddlewareMixin):
     def normalize_response(self, resp):
         return resp
 
-    def parse_response(self, raw_resp):
+    def parse_response(self, raw_resp) -> DictNamespace:
         try:
             resp = raw_resp.json()
         except json.JSONDecodeError as e:
             raise Exception(f"Failed to parse response: {raw_resp.text}")
-        return resp
+        return DictNamespace(resp)
 
 
 if __name__ == "__main__":

@@ -3,6 +3,7 @@ from functools import singledispatch
 
 import yaml
 import jinja2
+from .utils import lookup
 
 
 # TODO: from environmental variables ???
@@ -24,25 +25,8 @@ class Config:
     def __repr__(self):
         return f'Config({self.data})'
 
-    def lookup(self, key, default=..., _dict=None):
-        _dict = _dict or self.data
-        if not key:  # base case - we've consumed all parts
-            return _dict
-
-        head, _, tail = key.partition('.')
-        if head in _dict:
-            if isinstance(_dict[head], dict):
-                return self.lookup(tail, default, _dict=_dict[head])
-            elif not tail:  # it's a leaf node
-                return _dict[head]
-            elif default is not ...:
-                return default
-            else:
-                raise KeyError(key)
-        elif default is not ...:
-            return default
-        else:
-            raise KeyError(key)
+    def lookup(self, key, default=...):
+        return lookup(self.data, key, default)
 
     def render(self, key, **kwargs):
         text = self.lookup('templates.'+key)
