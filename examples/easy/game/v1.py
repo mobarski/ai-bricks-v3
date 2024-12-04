@@ -21,3 +21,4 @@ while True:
     print(response)
     ai_text = response.choices[0].message.content
     print(ai_text)
+    messages += [{'role': 'assistant', 'content': ai_text}]

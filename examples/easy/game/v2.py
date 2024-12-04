@@ -3,6 +3,8 @@ import aibricks
 
 import rich
 import re
+from rich.console import Console
+console = Console()
 
 
 def rich_output(text):
@@ -29,8 +31,9 @@ summary_middleware = aibricks.middleware.ChatSummaryMiddleware(ctx, max_in_conte
 client.add_middleware(summary_middleware)
 
 while True:
-    user_text = input("You: ")
+    user_text = console.input("[bold white]You: ", )
     messages += [{'role': 'user', 'content': user_text}]
     response = client.chat.completions.create(model='lmstudio:', messages=messages)
     ai_text = response.choices[0].message.content
-    rich_output(ai_text)
+    rich_output('\n' + ai_text)
+    messages += [{'role': 'assistant', 'content': ai_text}]
