@@ -48,6 +48,9 @@ templates:
     Output content in the following XML tags:
     {{ macro.xml_list('NPC') }}
 
+    Kingdom: {{ kingdom.name }}
+    Town: {{ town.name }}
+
   macros: |
     {%- macro xml_dict(tag) -%}
     <{{ tag }}>
