@@ -1,7 +1,6 @@
 parameters:
   genre: space-opera
   concept: take inspiration from WH40k, Dune, Fading Suns
-  #model: openrouter:sao10k/l3.1-euryale-70b
   description_length: 3-5 sentences
   model: lmstudio:qwen2.5-14b-instruct
 
@@ -48,7 +47,25 @@ templates:
     Output content in the following XML tags:
     {{ macro.xml_list('NPC') }}
 
-    Kingdom: {{ kingdom.name }}
+    Town: {{ town.name }}
+
+  location_prompt: |
+    Create 3 different locations based on the world, kingdom \
+    and town they're in. Describe the location's appearance and \
+    history, as well as any important people or events related to it.
+    
+    Output content in the following XML tags:
+    {{ macro.xml_list('LOCATION') }}
+
+    Town: {{ town.name }}
+
+  event_prompt: |
+    Create 3 different recent events based on the world, kingdom \
+    and town they're in. Describe the event, its cause and effect.
+    
+    Output content in the following XML tags:
+    {{ macro.xml_list('EVENT') }}
+
     Town: {{ town.name }}
 
   macros: |
@@ -60,8 +77,8 @@ templates:
     {%- endmacro -%}
     
     {%- macro xml_list(tag) -%}
-    <{{ tag }}S>
+    <{{ tag }}-LIST>
     {{ xml_dict(tag) }}
     ...
-    </{{ tag }}S>
+    </{{ tag }}-LIST>
     {%- endmacro -%}

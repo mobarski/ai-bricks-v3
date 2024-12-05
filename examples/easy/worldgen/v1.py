@@ -1,13 +1,14 @@
 from rich.pretty import pprint
 
 import os
+import re
 import json
 
 import aibricks
 from aibricks.utils import dict_from_xml, list_from_xml
 
 os.chdir(os.path.dirname(__file__))  # kind of ugly
-cfg = aibricks.load_config('./worldgen.yaml')
+cfg = aibricks.load_config('./worldgen-v1.yaml')
 
 client = aibricks.client()
 
@@ -23,11 +24,13 @@ def get_ai_resp_text(messages):
 messages = [{'role': 'system', 'content': cfg.render('system_prompt', **kw)}]
 messages += [{'role': 'user',  'content': cfg.render('world_prompt', **kw)}]
 
+# world
 ai_text = get_ai_resp_text(messages)
 messages += [{'role': 'assistant', 'content': ai_text}]
 kw['world'] = dict_from_xml(ai_text)
 pprint(kw['world'])
 
+# kingdoms
 messages += [{'role': 'user', 'content': cfg.render('kingdom_prompt', **kw)}]
 ai_text = get_ai_resp_text(messages)
 messages += [{'role': 'assistant', 'content': ai_text}]
@@ -35,22 +38,17 @@ kw['kingdoms'] = list_from_xml(ai_text)
 pprint(kw['kingdoms'])
 
 for kingdom in kw['kingdoms']:
+    # towns
     messages += [{'role': 'user', 'content': cfg.render('town_prompt', **kw, kingdom=kingdom)}]
     ai_text = get_ai_resp_text(messages)
     messages += [{'role': 'assistant', 'content': ai_text}]
     kingdom['towns'] = list_from_xml(ai_text)
     pprint(kingdom['towns'])
 
-    for town in kingdom['towns']:
-        messages += [{'role': 'user', 'content': cfg.render('npc_prompt', **kw, town=town)}]
-        ai_text = get_ai_resp_text(messages)
-        messages += [{'role': 'assistant', 'content': ai_text}]
-        town['npcs'] = list_from_xml(ai_text)
-        pprint(town['npcs'])
-
 
 # save the world to a json file
-with open('output/world.json', 'w') as f:
+world_label = re.sub(r'[^a-z0-9]', '', kw['world']['name'].lower())
+with open(f'output/v1-{world_label}.json', 'w') as f:
     world_dict = {
         'world': kw['world'],
         'parameters': cfg.lookup('parameters'),

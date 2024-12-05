@@ -1,0 +1,54 @@
+parameters:
+  genre: space-opera
+  concept: take inspiration from WH40k, Dune, Fading Suns
+  description_length: 3-5 sentences
+  model: lmstudio:qwen2.5-14b-instruct
+
+templates:
+    
+  system_prompt: |
+    Your job is to help create interesting {{ genre }} worlds
+    that players would love to play in.
+
+    Instructions:
+    - Only generate in plain text without formatting.
+    - Use simple clear language without being flowery.
+    - You must stay below {{ description_length }} for each description.
+  
+  world_prompt: |
+    Generate a creative description for a unique {{ genre }} world
+    with an interesting concept: {{ concept }}.
+
+    Output content in the following XML tags:
+    <WORLD>
+    <NAME>name</NAME>
+    <DESCRIPTION>description</DESCRIPTION>
+    </WORLD>
+
+  kingdom_prompt: |
+    Create 3 different kingdoms for this world.
+    For each kingdom generate a description based on the world it's in. \
+    Describe important leaders, cultures, history of the kingdom.
+
+    Output content in the following XML tags:
+    <KINGDOM-LIST>
+    <KINGDOM>
+    <NAME>name</NAME>
+    <DESCRIPTION>description</DESCRIPTION>
+    </KINGDOM>
+    ...
+    </KINGDOM-LIST>  
+
+  town_prompt: |
+    Create 3 different towns for kingdom {{ kingdom.name }}.
+    Describe the region it's in, important places of the town, \
+    and interesting history about it.
+    
+    Output content in the following XML tags:
+    <TOWN-LIST>
+    <TOWN>
+    <NAME>name</NAME>
+    <DESCRIPTION>description</DESCRIPTION>
+    </TOWN>
+    ...
+    </TOWN-LIST>

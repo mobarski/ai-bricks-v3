@@ -17,6 +17,7 @@
 
 # TODO
 
+- [ ] post progress, use https://app.codeimage.dev/
 - [ ] streaming middleware
 - [ ] XML fixing util in the middleware (xml.etree.ElementTree.ParseError)
 - [ ] add config to middleware call args
