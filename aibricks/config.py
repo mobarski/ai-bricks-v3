@@ -32,6 +32,10 @@ class Config:
         text = self.lookup('templates.'+key)
         if not text:
             raise KeyError(f'Template {key} not found or not a string')
+        if 'macros' in self.data.get('templates', {}):
+            # TODO: document this
+            header = "{% import 'macros' as macro %}\n"
+            text = header + text
         template = self.jinja2_env.from_string(text)
         return template.render(**kwargs)
 

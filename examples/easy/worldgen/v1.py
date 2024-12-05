@@ -11,7 +11,7 @@ cfg = aibricks.load_config('./worldgen.yaml')
 
 client = aibricks.client()
 
-kw = cfg.lookup('parameters')
+kw = cfg.lookup('parameters').copy()
 
 
 def get_ai_resp_text(messages):
@@ -53,6 +53,7 @@ for kingdom in kw['kingdoms']:
 with open('output/world.json', 'w') as f:
     world_dict = {
         'world': kw['world'],
+        'parameters': cfg.lookup('parameters'),
         'kingdoms': kw['kingdoms'],
     }
     json.dump(world_dict, f, indent=2)

@@ -18,6 +18,7 @@
 # TODO
 
 - [ ] streaming middleware
+- [ ] XML fixing util in the middleware (xml.etree.ElementTree.ParseError)
 - [ ] add config to middleware call args
 - [ ] two local models
 - [ ] outlines like prompts (jinja2) ???

@@ -2,10 +2,11 @@ parameters:
   genre: space-opera
   concept: take inspiration from WH40k, Dune, Fading Suns
   #model: openrouter:sao10k/l3.1-euryale-70b
-  model: lmstudio:qwen2.5-14b-instruct
   description_length: 3-5 sentences
+  model: lmstudio:qwen2.5-14b-instruct
 
 templates:
+    
   system_prompt: |
     Your job is to help create interesting {{ genre }} worlds
     that players would love to play in.
@@ -20,24 +21,15 @@ templates:
     with an interesting concept: {{ concept }}.
 
     Output content in the following XML tags:
-    <WORLD>
-    <NAME>name</NAME>
-    <DESCRIPTION>description</DESCRIPTION>
-    </WORLD>
-  
+    {{ macro.xml_dict('WORLD') }}
+
   kingdom_prompt: |
     Create 3 different kingdoms for this world.
     For each kingdom generate a description based on the world it's in. \
     Describe important leaders, cultures, history of the kingdom.
 
     Output content in the following XML tags:
-    <KINGDOMS>
-    <KINGDOM>
-    <NAME>name</NAME>
-    <DESCRIPTION>description</DESCRIPTION>
-    </KINGDOM>
-    ...
-    </KINGDOMS>
+    {{ macro.xml_list('KINGDOM') }}
   
   town_prompt: |
     Create 3 different towns for kingdom {{ kingdom.name }}.
@@ -45,13 +37,7 @@ templates:
     and interesting history about it.
     
     Output content in the following XML tags:
-    <TOWNS>
-    <TOWN>
-    <NAME>name</NAME>
-    <DESCRIPTION>description</DESCRIPTION>
-    </TOWN>
-    ...
-    </TOWNS>
+    {{ macro.xml_list('TOWN') }}
 
   npc_prompt: |
     Create 3 different characters based on the world, kingdom \
@@ -59,33 +45,17 @@ templates:
     profession, as well as their deeper pains and desires. \
     Mention any organizations they're part of.
     
-    Output content in the form:
-    Character 1 Name: <CHARACTER NAME>
-    Character 1 Description: <CHARACTER DESCRIPTION>
-    Character 2 Name: <CHARACTER NAME>
-    Character 2 Description: <CHARACTER DESCRIPTION>
-    Character 3 Name: <CHARACTER NAME>
-    Character 3 Description: <CHARACTER DESCRIPTION>
-
     Output content in the following XML tags:
-    <NPCS>
-    <NPC>
-    <NAME>name</NAME>
-    <DESCRIPTION>description</DESCRIPTION>
-    </NPC>
-    ...
-    </NPCS>
+    {{ macro.xml_list('NPC') }}
 
-# NOT WORKING AS EXPECTED
-macros:
-  xml_dict: |
+  macros: |
     {%- macro xml_dict(tag) -%}
     <{{ tag }}>
     <NAME>name</NAME>
     <DESCRIPTION>description</DESCRIPTION>
     </{{ tag }}>
     {%- endmacro -%}
-  xml_list: |
+    
     {%- macro xml_list(tag) -%}
     <{{ tag }}S>
     {{ xml_dict(tag) }}
