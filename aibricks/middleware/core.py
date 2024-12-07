@@ -10,6 +10,9 @@ class MiddlewareBase:
     def request(self, data, ctx):
         return data
 
+    def handle_response(self, response, ctx, request=None):
+        return None
+
     def response(self, data, ctx):
         return data
 
@@ -23,8 +26,8 @@ class MiddlewareMixin:
         self.middleware.append(middleware)
         middleware.parent = self
 
-    def run_middleware(self, event, data):
+    def run_middleware(self, event, data, **kwargs):
         for m in self.middleware:
             if hasattr(m, event):
-                data = getattr(m, event)(data, m.ctx)
+                data = getattr(m, event)(data, m.ctx, **kwargs)
         return data

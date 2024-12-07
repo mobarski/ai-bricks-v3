@@ -24,10 +24,15 @@ class OpenAiConnection(MiddlewareMixin):
         data = self.normalized_chat_data(messages, **kwargs)
         request = self.normalized_chat_request(data)
         request = self.run_middleware("request", request)
-        request['data'] = json.dumps(data)  # done here to allow data modification
-        # -------------------------------
-        raw_resp = self.post_request(**request)
-        # -------------------------------
+
+        # Allow middleware to handle the response before JSON serialization
+        middleware_response = self.run_middleware("handle_response", None, request=request)
+        if middleware_response is not None:
+            raw_resp = middleware_response
+        else:
+            request['data'] = json.dumps(data)  # JSON serialize only if making actual API call
+            raw_resp = self.post_request(**request)
+
         raw_resp = self.run_middleware("raw_response", raw_resp)
         resp = self.parse_response(raw_resp)
         resp = self.run_middleware("response", resp)
