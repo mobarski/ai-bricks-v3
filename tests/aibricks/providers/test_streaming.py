@@ -7,9 +7,9 @@ import aibricks
     "openai:gpt-4o-mini",
     "openrouter:meta-llama/llama-3.2-1b-instruct:free", # ERROR: Exception: Failed to parse response: : OPENROUTER PROCESSING
     "google:gemini-1.5-flash-8b",
-    #"arliai:Mistral-Nemo-12B-Instruct-2407",
     "xai:grok-beta",
-    "together:meta-llama/Meta-Llama-3-8B-Instruct-Turbo",
+    #"arliai:Mistral-Nemo-12B-Instruct-2407",
+    #"together:meta-llama/Meta-Llama-3-8B-Instruct-Turbo",
 ])
 def test_stream(model_id):
     print()

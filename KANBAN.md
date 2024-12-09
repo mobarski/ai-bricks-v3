@@ -4,7 +4,6 @@
 - [ ] test middleware with client.chat.completions.create
 - [ ] game example v1
 - [ ] config (yaml + jinja2)
-- [ ] streaming (REF: https://github.com/oobabooga/text-generation-webui/wiki/12-%E2%80%90-OpenAI-API#examples)
 
 # ACTIVE
 
@@ -66,6 +65,7 @@
 
 # DONE
 
+- [x] streaming (REF: https://github.com/oobabooga/text-generation-webui/wiki/12-%E2%80%90-OpenAI-API#examples)
 - [x] change context type to dict
 - [x] add context to middleware call args (to make code prettier)
 - [x] lambda x: for all kwargs (not only model)
