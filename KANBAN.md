@@ -2,8 +2,8 @@
 
 - [ ] chat summary middleware
 - [ ] test middleware with client.chat.completions.create
-- [ ] game example v1
 - [ ] config (yaml + jinja2)
+- [ ] game example v1
 
 # ACTIVE
 

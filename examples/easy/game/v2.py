@@ -7,6 +7,7 @@ from rich.console import Console
 console = Console()
 
 
+# TODO: width
 def rich_output(text):
     text = re.sub('(["][^"]*?["])', r'[blue]\1[/]', text)
     text = re.sub('([*][^*]*?[*])', r'[yellow]\1[/]', text)
@@ -16,7 +17,7 @@ def rich_output(text):
 os.chdir(os.path.dirname(__file__)) # kind of ugly
 cfg = aibricks.load_config("./game.yaml")
 
-character = cfg.lookup('characters.marcus')
+character = cfg.lookup('characters.anne')
 game_prompt = cfg.render('game_prompt', character=character)
 
 messages = [{'role': 'system', 'content': game_prompt}]
