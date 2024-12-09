@@ -1,9 +1,6 @@
 # TESTING
 
-- [ ] chat summary middleware
-- [ ] test middleware with client.chat.completions.create
-- [ ] config (yaml + jinja2)
-- [ ] game example v1
+- [ ] basic chat summary middleware
 
 # ACTIVE
 
@@ -65,6 +62,9 @@
 
 # DONE
 
+- [x] test middleware with client.chat.completions.create
+- [x] config (yaml + jinja2)
+- [x] game example v1
 - [x] streaming (REF: https://github.com/oobabooga/text-generation-webui/wiki/12-%E2%80%90-OpenAI-API#examples)
 - [x] change context type to dict
 - [x] add context to middleware call args (to make code prettier)
