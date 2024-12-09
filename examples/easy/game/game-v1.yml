@@ -41,6 +41,3 @@ characters:
       What brings you to my shop? Looking for something specific, or are you just here to browse through the junk?
     author: Souchira
     source: https://aicharactercards.com/charactercards/character-cards/souchira/marcus-the-alien-tech-merchant/
-
-#include:
-#  - characters.yaml
