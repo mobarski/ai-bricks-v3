@@ -1,10 +1,15 @@
 class Client:
     def __init__(self, connect, model=None, **kwargs):
         self.chat = Chat(self)
-        self.connect = connect
         self.model = model
+        self.config = kwargs.pop('config', None)
+        self.from_config = kwargs.pop('from_config', None)
+        self._connect = connect
         self.kwargs = kwargs
         self.middleware = []
+
+    def connect(self, model):
+        return self._connect(model, config=self.config, from_config=self.from_config, **self.kwargs)
 
     def add_middleware(self, middleware):
         self.middleware.append(middleware)

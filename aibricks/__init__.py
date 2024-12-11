@@ -11,7 +11,7 @@ from .config import load_config, load_configs
 
 
 def connect(connection_str=None, **kwargs):
-    assert connection_str or ('from_config' in kwargs and 'config' in kwargs)
+    assert connection_str or (kwargs.get('from_config') and kwargs.get('config'))
 
     # Handle from_config case
     if 'from_config' in kwargs:

@@ -1,14 +1,12 @@
 # TESTING
 
-
 # ACTIVE
 
-- [ ] client from_config
 - [ ] basic chat summary middleware
+- [ ] DictNamespace for responses
 
 # PAUSED
 
-- [ ] DictNamespace for responses
 - [ ] server (to act as provider)
 
 # NEXT
@@ -66,6 +64,7 @@
 
 # DONE
 
+- [x] client from_config
 - [x] connection from_config (+kwargs)
 - [x] ERROR: using the same connection for summary creates a (finite) loop
 - [x] test middleware with client.chat.completions.create
