@@ -10,12 +10,23 @@ from .providers import (
 from .config import load_config, load_configs
 
 
-def connect(connection_str, **kwargs):
+def connect(connection_str=None, **kwargs):
+    assert connection_str or ('from_config' in kwargs and 'config' in kwargs)
+
+    # Handle from_config case
+    if 'from_config' in kwargs:
+        config = kwargs.pop('config')
+        active = kwargs.pop('from_config')
+        connection_str = config.lookup(f'{active}.connection_str')
+        cfg_kwargs = config.lookup(f'{active}.kwargs', {})
+        kwargs = {**cfg_kwargs, **kwargs}
+
+    # Handle normal case
     if ':' in connection_str:
         provider, model = connection_str.split(":", 1)
     else:
         provider = connection_str
-        model = None
+        model = ''  # TODO: or None ???
 
     if provider == "dummy":
         return DummyConnection(model, **kwargs)

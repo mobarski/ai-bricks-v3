@@ -31,7 +31,7 @@ class DummyResponse:
                 "index": 0,
                 "message": {
                     "role": "assistant",
-                    "content": f"DUMMY RESPONSE for {self.model} with {len(self.messages)} messages"
+                    "content": f"DUMMY RESPONSE to {len(self.messages)} messages ({len(str(self.messages))} characters) from the {self.model} model"
                 },
                 "finish_reason": "stop"
             }],

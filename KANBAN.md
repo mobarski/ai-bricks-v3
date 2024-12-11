@@ -1,11 +1,11 @@
 # TESTING
 
-- [ ] basic chat summary middleware
+- [ ] connection from_config
 
 # ACTIVE
 
-- [ ] DictNamespace for config and responses
-
+- [ ] basic chat summary middleware
+- [ ] DictNamespace for responses
 
 # PAUSED
 
@@ -13,6 +13,8 @@
 
 # TODO
 
+- [ ] client from_config
+- [ ] connection middleware from_config
 - [ ] post progress, use https://app.codeimage.dev/
 - [ ] config based new providers
 - [ ] streaming middleware
@@ -62,6 +64,7 @@
 
 # DONE
 
+- [x] ERROR: using the same connection for summary creates a (finite) loop
 - [x] test middleware with client.chat.completions.create
 - [x] config (yaml + jinja2)
 - [x] game example v1

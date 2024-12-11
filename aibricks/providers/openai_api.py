@@ -16,6 +16,7 @@ class OpenAiConnection(MiddlewareMixin):
     provider = "openai"
 
     def __init__(self, model, **kwargs):
+        super().__init__()
         self.model = model
         self.kwargs = kwargs
 

@@ -5,7 +5,7 @@ import rich
 import re
 from rich.console import Console
 
-CHARACTER = 'marcus'
+CHARACTER = 'anne'
 MODEL = 'lmstudio:'
 console = Console(width=80)
 
@@ -30,7 +30,9 @@ rich_output(character['first_message'])
 client = aibricks.client()
 
 ctx = {}
-summary_middleware = aibricks.middleware.ChatSummaryMiddleware(ctx, max_in_context_chars=8000)
+aux_connection = aibricks.connect('lmstudio:')
+summary_middleware = aibricks.middleware.ChatSummaryMiddleware(ctx, aux_connection, max_in_context_chars=8000)
+summary_middleware.debug = True
 client.add_middleware(summary_middleware)
 
 while True:

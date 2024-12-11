@@ -20,7 +20,9 @@ class MiddlewareBase:
 
 
 class MiddlewareMixin:
-    middleware = []
+
+    def __init__(self):
+        self.middleware = []
 
     def add_middleware(self, middleware):
         self.middleware.append(middleware)

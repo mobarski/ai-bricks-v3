@@ -12,8 +12,25 @@ import aibricks
     "arliai:Mistral-Nemo-12B-Instruct-2407",
 ])
 def test_online_provider(model_id):
-    client = aibricks.connect(model_id)
-    resp = client.chat_create([{"role": "user", "content": "Tell me a joke."}])
+    conn = aibricks.connect(model_id)
+    resp = conn.chat_create([{"role": "user", "content": "Tell me a joke."}])
+    try:
+        content = resp['choices'][0]['message']['content']
+        print(content)
+    except KeyError as e:
+        print(resp)
+        raise e
+    assert content
+
+
+@pytest.mark.parametrize("conn_id", [
+    'connections.default',
+    'connections.aux',
+])
+def test_connect_from_config(conn_id):
+    cfg = aibricks.load_config('tests/aibricks/test_data/config/connections.yaml')
+    conn = aibricks.connect(from_config=conn_id, config=cfg)
+    resp = conn.chat_create([{"role": "user", "content": "Tell me a joke."}])
     try:
         content = resp['choices'][0]['message']['content']
         print(content)

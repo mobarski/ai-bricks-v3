@@ -129,8 +129,14 @@ pytest tests/aibricks/middleware/
 
 - [game](examples/easy/game/) - simple "chat with a character", nice stepping stone for building rpg/adventure games
   - [v1](examples/easy/game/v1.py) as simple as it gets
-  - [v2](examples/easy/game/v1.py) adds "infinite context" and colors
-  - [v3](#TODO) ~~adds save/load/undo functionality~~
+  - [v2](examples/easy/game/v2.py) adds:
+    - "infinite context"
+    - colors and formatting
+    - more characters
+  - [v3](#TODO) adds configuration driven client+middleware creation
+  - [v4](#TODO) adds:
+    - ~~streaming~~
+    - ~~save/load/undo functionality~~
 - [worldgen](examples/easy/worldgen/) - simple, hierarchical world generation (based on [this lesson](https://learn.deeplearning.ai/courses/building-an-ai-powered-game/lesson/2/hierarchical-content-generation)), another stepping stone for building rpg/adventure games
   - [v1](examples/easy/worldgen/v1.py) as simple as it gets 
   - [v2](examples/easy/worldgen/v2.py) adds: 

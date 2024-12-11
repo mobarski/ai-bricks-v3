@@ -1,15 +1,17 @@
 from aibricks.middleware import MiddlewareBase
-
+import logging
+logging.basicConfig(level=logging.INFO)
 
 class ChatSummaryMiddleware(MiddlewareBase):
     # Class constants
     DEFAULT_MAX_CONTEXT_CHARS = 2000
-    MIN_MESSAGES_TO_KEEP = 1
+    MIN_MESSAGES_TO_KEEP = 6
     SUMMARY_LENGTH_RATIO = 0.25
 
     def __init__(self,
                  ctx: dict,
-                 connection=None,
+                 connection,
+                 /,
                  max_in_context_chars=DEFAULT_MAX_CONTEXT_CHARS):
         super().__init__(ctx)
         self.connection = connection
@@ -23,28 +25,34 @@ class ChatSummaryMiddleware(MiddlewareBase):
     # Main request handling
     # ---------------------
     def request(self, data, ctx):
-        messages = data['data']['messages']
-        data['data']['messages'] = self.insert_summary(messages)
+        data['data']['messages'] = self.insert_summary(data['data']['messages'])
         ctx['summary'] = self.current_summary
         return data
 
     def insert_summary(self, messages: list[dict]) -> list[dict]:
-        total_history_length = len(str(messages[self.first_msg_idx:]))
-        if total_history_length < self.max_in_context_chars:
+        if not self._should_summarize(messages):
             return messages
 
         message_count = len(messages) - self.first_msg_idx
-        messages_to_keep = max(self.MIN_MESSAGES_TO_KEEP, message_count // 3)
-        messages_to_summarize = message_count - messages_to_keep
+        n_messages_to_keep = max(self.MIN_MESSAGES_TO_KEEP, message_count)
+        n_messages_to_summarize = message_count - n_messages_to_keep
 
-        history_to_summarize = messages[self.first_msg_idx: -messages_to_keep]
-        self.first_msg_idx += messages_to_summarize
+        history_to_summarize = messages[self.first_msg_idx:]
+        self.first_msg_idx += n_messages_to_summarize
 
-        updated_summary = self.create_summary(self.current_summary, history_to_summarize)
-        self.current_summary = updated_summary
-        summary_msg = self.get_summary_message(updated_summary)
+        new_summary = self.create_summary(self.current_summary, history_to_summarize)
+        self.current_summary = new_summary
+        summary_msg = self.get_summary_message(new_summary)
 
-        return [summary_msg] + messages[-messages_to_keep:]
+        logging.info(f'Summarizing chat history... message_count:{message_count} first_msg_idx:{self.first_msg_idx} history_to_summarize_count:{len(history_to_summarize)}')
+        return [summary_msg] + messages[-n_messages_to_keep:]
+
+    def _should_summarize(self, messages: list[dict]) -> bool:
+        total_history_length = len(str(messages[self.first_msg_idx:]))
+        len_above_limit = total_history_length >= self.max_in_context_chars
+        if command_detected := '/summary' in messages[-1]['content']:
+            messages = messages[:-1]
+        return len_above_limit or command_detected
 
     # Summary generation
     # ------------------
@@ -61,15 +69,15 @@ class ChatSummaryMiddleware(MiddlewareBase):
 
         summary_request = [{"role": "system", "content": system_prompt}]
 
-        if current_summary:
-            summary_request.append(self.get_summary_message(current_summary))
+        #if current_summary:
+        #    summary_request.append(self.get_summary_message(current_summary))
 
         summary_request.append(self.get_messages_message(new_messages))
 
         if self.debug:
             print(f'\n\ncreate_summary request: {summary_request=}')
 
-        conn = self.connection or self.parent
+        conn = self.connection
         response = conn.chat_create(messages=summary_request)
         return response['choices'][0]['message']['content']
 
@@ -81,11 +89,9 @@ class ChatSummaryMiddleware(MiddlewareBase):
             "content": f'SUMMARY OF PREVIOUS CHAT:\n\n{summary}'
         }
 
+    # TODO: rename
     def get_messages_message(self, messages: list[dict]) -> dict:
-        chat_history = '\n'.join(
-            f'{msg["role"]}: {msg["content"]}'
-            for msg in messages
-        )
+        chat_history = '\n'.join([f'{msg["role"]}: {msg["content"]}' for msg in messages])
         return {
             "role": "user",
             "content": f'CHAT HISTORY:\n\n{chat_history}'

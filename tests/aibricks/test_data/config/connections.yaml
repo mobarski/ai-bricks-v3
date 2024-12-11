@@ -1,0 +1,20 @@
+connections:
+
+  default:
+    connection_str: lmstudio:exaone-3.5-7.8b-instruct
+    kwargs:
+      temperature: 0.7
+      max_tokens: 1
+    middleware:
+      - TimingMiddleware:
+      - ChatSummaryMiddleware:
+          aux_connection:
+            from_config: connections.aux
+          max_in_context_chars: 12000
+
+  aux:
+    connection_str: lmstudio
+    middleware:
+      - TimingMiddleware:
+      - LoggingMiddleware:
+  
