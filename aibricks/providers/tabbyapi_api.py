@@ -7,8 +7,8 @@ from .openai_api import OpenAiConnection
 # REF: https://github.com/theroyallab/tabbyAPI/wiki/API-Reference#chat-completion
 # REF: https://github.com/theroyallab/tabbyAPI/wiki/API-Reference#model-management
 class TabbyApiConnection(OpenAiConnection):
-    api_key_env = None
-    api_base_url = "http://localhost:5001/v1"
+    api_key_env = 'TABBY_API_KEY'
+    api_base_url = "http://localhost:5000/v1"
     provider = "tabbyapi"
 
     def normalized_chat_data(self, messages, **kwargs):
@@ -43,7 +43,8 @@ if __name__ == "__main__":
     conn = TabbyApiConnection(None)
     resp = conn.chat_create([{"role": "user", "content": "Tell me a joke."}])
     print(resp)
-    resp = conn.download_model("lucyknada/Qwen_Qwen2.5-Coder-0.5B-Instruct-exl2", revision="4.0bpw")
-    print(resp)
-    resp = conn.load_model("Qwen_Qwen2.5-Coder-0.5B-Instruct-exl2")
-    print(resp)
+    if False:
+        resp = conn.download_model("lucyknada/Qwen_Qwen2.5-Coder-0.5B-Instruct-exl2", revision="4.0bpw")
+        print(resp)
+        resp = conn.load_model("Qwen_Qwen2.5-Coder-0.5B-Instruct-exl2")
+        print(resp)

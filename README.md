@@ -133,10 +133,9 @@ pytest tests/aibricks/middleware/
     - "infinite context"
     - colors and formatting
     - more characters
-  - [v3](#TODO) adds configuration driven client+middleware creation
-  - [v4](#TODO) adds:
-    - ~~streaming~~
-    - ~~save/load/undo functionality~~
+  - [v3](#TODO) adds configuration driven client+middleware creation (TODO)
+  - [v4](#TODO) adds save/load/undo functionality (TODO)
+  - [v5](#TODO) adds streaming (TODO)
 - [worldgen](examples/easy/worldgen/) - simple, hierarchical world generation (based on [this lesson](https://learn.deeplearning.ai/courses/building-an-ai-powered-game/lesson/2/hierarchical-content-generation)), another stepping stone for building rpg/adventure games
   - [v1](examples/easy/worldgen/v1.py) as simple as it gets 
   - [v2](examples/easy/worldgen/v2.py) adds: 
