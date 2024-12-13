@@ -2,17 +2,18 @@
 
 # ACTIVE
 
+- [ ] connection middleware from_config -> make it less UGLY
+
+# PAUSED
+
 - [ ] basic chat summary middleware
 - [ ] save/load middleware
 - [ ] DictNamespace for responses
-
-# PAUSED
 
 - [ ] server (to act as provider)
 
 # NEXT
 
-- [ ] connection middleware from_config -> make it less UGLY
 - [ ] filter out roles other than system/user/assistant and use them for internal stuff (/command response etc)
 - [ ] save/load middleware vs summary middleware
 
@@ -68,6 +69,8 @@
 
 # DONE
 
+- [x] move connection mapping and middleware mapping to their __init__.py files
+- [x] connection logic factored out into connection.py
 - [x] database connection factory
 - [x] connection middleware from_config
 - [x] move ctx to connection / client
