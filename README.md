@@ -100,11 +100,10 @@ class TimingMiddleware(MiddlewareBase):
         ctx["duration"] = time.perf_counter() - ctx["start"]
         return data
 
-ctx = {}
 client = aibricks.connect('openrouter:qwen/qwen-2.5-coder-32b-instruct')
-client.add_middleware(TimingMiddleware(ctx))
+client.add_middleware(TimingMiddleware())
 resp = client.chat_create([{'role': 'user', 'content': 'Tell me a joke.'}])
-print(ctx)
+print(client.ctx)
 ```
 
 ## How to test

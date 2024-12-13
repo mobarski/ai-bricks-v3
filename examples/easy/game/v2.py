@@ -29,9 +29,8 @@ rich_output(character['first_message'])
 
 client = aibricks.client()
 
-ctx = {}
 aux_connection = aibricks.connect('lmstudio:')
-summary_middleware = aibricks.middleware.ChatSummaryMiddleware(ctx, aux_connection, max_in_context_chars=8000)
+summary_middleware = aibricks.middleware.ChatSummaryMiddleware(aux_connection, max_in_context_chars=8000)
 summary_middleware.debug = True
 client.add_middleware(summary_middleware)
 

@@ -36,6 +36,7 @@ class OpenAiConnection(MiddlewareMixin):
 
         raw_resp = self.run_middleware("raw_response", raw_resp)
         resp = self.parse_response(raw_resp)
+        #assert 'error' not in resp, f"Error returned from the API: {resp['error']}"
         resp = self.run_middleware("response", resp)
         norm_resp = self.normalize_response(resp)
         norm_resp = self.run_middleware("normalized_response", norm_resp)

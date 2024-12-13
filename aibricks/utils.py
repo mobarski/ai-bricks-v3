@@ -25,7 +25,8 @@ def lookup(data, key, default=...):
 
     for part in key.split('.'):
         try:
-            if part.isdigit():
+            # Handle both positive and negative indices
+            if part.lstrip('-').isdigit():
                 current = current[int(part)]
             elif hasattr(current, '__getitem__'):
                 current = current[part]
@@ -37,3 +38,17 @@ def lookup(data, key, default=...):
             return default
 
     return current
+
+
+class DatabaseFactory:
+    _instances = {}
+
+    @classmethod
+    def get_connection(cls, path):
+        if path not in cls._instances:
+            import sqlite3
+            from pathlib import Path
+            if path != ':memory:':
+                Path(path).parent.mkdir(parents=True, exist_ok=True)
+            cls._instances[path] = sqlite3.connect(path)
+        return cls._instances[path]

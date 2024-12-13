@@ -2,13 +2,15 @@ import time
 import json
 
 from aibricks.middleware import MiddlewareBase
+from ..utils import DatabaseFactory
 
 
 class LoggingMiddleware(MiddlewareBase):
 
-    def __init__(self, ctx: dict, db):
-        super().__init__(ctx)
-        self.db = db
+    def __init__(self, db):
+        super().__init__()
+        # Handle db parameter - can be either a connection or a path
+        self.db = db if hasattr(db, 'execute') else DatabaseFactory.get_connection(db)
         self.db.execute("""
             CREATE TABLE IF NOT EXISTS logs (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,

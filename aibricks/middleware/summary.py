@@ -2,6 +2,7 @@ from aibricks.middleware import MiddlewareBase
 import logging
 logging.basicConfig(level=logging.INFO)
 
+
 class ChatSummaryMiddleware(MiddlewareBase):
     # Class constants
     DEFAULT_MAX_CONTEXT_CHARS = 2000
@@ -9,14 +10,14 @@ class ChatSummaryMiddleware(MiddlewareBase):
     SUMMARY_LENGTH_RATIO = 0.25
 
     def __init__(self,
-                 ctx: dict,
                  connection,
-                 /,
                  max_in_context_chars=DEFAULT_MAX_CONTEXT_CHARS):
-        super().__init__(ctx)
+        super().__init__()
         self.connection = connection
         self.first_msg_idx = 0
         self.max_in_context_chars = max_in_context_chars
+        # ERROR in test_connect_from_config
+        ctx = self.connection.ctx
         if 'summary' not in ctx:
             ctx['summary'] = ''
         self.current_summary = ctx['summary']

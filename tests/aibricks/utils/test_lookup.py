@@ -14,6 +14,19 @@ def test_lookup_list():
     assert lookup(data, 'items.1.name') == 'second'
 
 
+def test_lookup_negative_indices():
+    data = {'items': [{'name': 'first'}, {'name': 'second'}, {'name': 'third'}]}
+    assert lookup(data, 'items.-1.name') == 'third'
+    assert lookup(data, 'items.-2.name') == 'second'
+    assert lookup(data, 'items.-3.name') == 'first'
+
+
+def test_lookup_negative_indices_out_of_range():
+    data = {'items': [{'name': 'first'}, {'name': 'second'}]}
+    with pytest.raises(KeyError):
+        lookup(data, 'items.-3.name')
+
+
 def test_lookup_with_default():
     data = {'a': 1}
     assert lookup(data, 'b', default='not found') == 'not found'
@@ -52,4 +65,5 @@ def test_lookup_nested_complex():
     }
     assert lookup(data, 'users.0.profile.settings.theme') == 'dark'
     assert lookup(data, 'users.1.profile.name') == 'Bob'
-
+    assert lookup(data, 'users.-1.profile.name') == 'Bob'
+    assert lookup(data, 'users.-2.profile.settings.theme') == 'dark'

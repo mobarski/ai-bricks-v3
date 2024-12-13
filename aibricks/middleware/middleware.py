@@ -3,8 +3,7 @@ from types import SimpleNamespace
 
 class MiddlewareBase:
 
-    def __init__(self, ctx: dict):
-        self.ctx = ctx
+    def __init__(self):
         self.parent = None
 
     def request(self, data, ctx):
@@ -23,10 +22,12 @@ class MiddlewareMixin:
 
     def __init__(self):
         self.middleware = []
+        self.ctx = {}
 
     def add_middleware(self, middleware):
         self.middleware.append(middleware)
         middleware.parent = self
+        middleware.ctx = self.ctx
 
     def run_middleware(self, event, data, **kwargs):
         for m in self.middleware:

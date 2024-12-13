@@ -14,11 +14,10 @@ from aibricks.middleware import TimingMiddleware
     "xai:grok-beta",
 ])
 def test_timing_middleware_on_client(model_id):
-    ctx = {}
     client = aibricks.client(model_id)
-    client.add_middleware(TimingMiddleware(ctx))
+    client.add_middleware(TimingMiddleware())
     resp = client.chat.completions.create(model=None, messages=[{"role": "user", "content": "Tell me a joke."}])
-    print(model_id, ctx)
+    print(model_id, client.ctx)
     try:
         content = resp['choices'][0]['message']['content']
     except KeyError as e:
@@ -35,11 +34,10 @@ def test_timing_middleware_on_client(model_id):
     "xai:grok-beta",
 ])
 def test_timing_middleware_on_connection(model_id):
-    ctx = {}
     conn = aibricks.connect(model_id)
-    conn.add_middleware(TimingMiddleware(ctx))
+    conn.add_middleware(TimingMiddleware())
     resp = conn.chat_create([{"role": "user", "content": "Tell me a joke."}])
-    print(model_id, ctx)
+    print(model_id, conn.ctx)
     try:
         content = resp['choices'][0]['message']['content']
     except KeyError as e:

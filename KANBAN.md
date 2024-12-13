@@ -3,6 +3,7 @@
 # ACTIVE
 
 - [ ] basic chat summary middleware
+- [ ] save/load middleware
 - [ ] DictNamespace for responses
 
 # PAUSED
@@ -11,10 +12,12 @@
 
 # NEXT
 
-- [ ] connection middleware from_config
 
 # TODO
 
+- [ ] connection middleware from_config -> make it less UGLY
+- [ ] filter out roles other than system/user/assistant and use them for internal stuff (/command response etc)
+- [ ] save/load middleware vs summary middleware
 - [ ] post progress, use https://app.codeimage.dev/
 - [ ] config based new providers
 - [ ] streaming middleware
@@ -64,6 +67,9 @@
 
 # DONE
 
+- [x] database connection factory
+- [x] connection middleware from_config
+- [x] move ctx to connection / client
 - [x] client from_config
 - [x] connection from_config (+kwargs)
 - [x] ERROR: using the same connection for summary creates a (finite) loop

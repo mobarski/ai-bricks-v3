@@ -1,18 +1,18 @@
-class Client:
+from aibricks.middleware.middleware import MiddlewareMixin
+
+
+class Client(MiddlewareMixin):
     def __init__(self, connect, model=None, **kwargs):
+        super().__init__()
         self.chat = Chat(self)
         self.model = model
         self.config = kwargs.pop('config', None)
         self.from_config = kwargs.pop('from_config', None)
         self._connect = connect
         self.kwargs = kwargs
-        self.middleware = []
 
     def connect(self, model):
-        return self._connect(model, config=self.config, from_config=self.from_config, **self.kwargs)
-
-    def add_middleware(self, middleware):
-        self.middleware.append(middleware)
+        return self._connect(model, ctx=self.ctx, config=self.config, from_config=self.from_config, **self.kwargs)
 
 
 class Chat:

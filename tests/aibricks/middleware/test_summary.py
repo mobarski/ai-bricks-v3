@@ -29,15 +29,14 @@ MESSAGES = [
     #"xai:grok-beta",
 ])
 def test_online_summary_max_chars(model_id):
-    ctx = {}
     aux_connection = aibricks.connect(model_id)
     client = aibricks.connect('dummy:main')
-    summary_middleware = ChatSummaryMiddleware(ctx, aux_connection, max_in_context_chars=20)
+    summary_middleware = ChatSummaryMiddleware(aux_connection, max_in_context_chars=20)
     summary_middleware.debug = True
     client.add_middleware(summary_middleware)
     resp = client.chat_create(MESSAGES)
     print(resp)
-    print(ctx)
+    print(client.ctx)
 
 
 @pytest.mark.parametrize("model_id", [
@@ -49,12 +48,11 @@ def test_online_summary_max_chars(model_id):
     #"xai:grok-beta",
 ])
 def test_online_summary_command(model_id):
-    ctx = {}
     aux_connection = aibricks.connect(model_id)
     client = aibricks.connect('dummy:main')
-    summary_middleware = ChatSummaryMiddleware(ctx, aux_connection)
+    summary_middleware = ChatSummaryMiddleware(aux_connection)
     summary_middleware.debug = True
     client.add_middleware(summary_middleware)
     resp = client.chat_create(MESSAGES + [{"role": "user", "content": "/summary"}])
     print(resp)
-    print(ctx)
+    print(client.ctx)

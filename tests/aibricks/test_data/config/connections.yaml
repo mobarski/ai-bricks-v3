@@ -8,7 +8,7 @@ connections:
     middleware:
       - TimingMiddleware:
       - ChatSummaryMiddleware:
-          aux_connection:
+          connection:
             from_config: connections.aux
           max_in_context_chars: 12000
 
@@ -19,4 +19,5 @@ connections:
     middleware:
       - TimingMiddleware:
       - LoggingMiddleware:
+          db: /tmp/aibricks/db/logging.sqlite
   
