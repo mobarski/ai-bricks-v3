@@ -12,12 +12,13 @@
 
 # NEXT
 
-
-# TODO
-
 - [ ] connection middleware from_config -> make it less UGLY
 - [ ] filter out roles other than system/user/assistant and use them for internal stuff (/command response etc)
 - [ ] save/load middleware vs summary middleware
+
+# TODO
+
+- [ ] explicit permission for characters
 - [ ] post progress, use https://app.codeimage.dev/
 - [ ] config based new providers
 - [ ] streaming middleware

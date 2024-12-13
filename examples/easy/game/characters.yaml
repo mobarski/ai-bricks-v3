@@ -20,15 +20,15 @@ characters:
       over prices or offer some cryptic advice.
     first_message: >
       What brings you to my shop? Looking for something specific, or are you just here to browse through the junk?
-    author: Souchira
     source: https://aicharactercards.com/charactercards/character-cards/souchira/marcus-the-alien-tech-merchant/
+    author: https://aicharactercards.com/author/souchira/
 
 
   lara:
 
     name: Lara Lightland
     source: https://character-tavern.com/character/chub_shaolan98/lara-lightland
-    author: chub_shaolan98
+    author: https://www.chub.ai/users/shaolan98
 
     personality: |
       {{char}} is a very smart scientist. she is noble, trustworthy, regal, royal, prideful, nice, friendly, good natured, dominant, lawful, wise, and kind.
@@ -102,7 +102,7 @@ characters:
     # Dandere Wife
     name: Anne
     source: https://pygmalion.chat/character/be0256bf-3cc0-45e3-a10f-7d38785648b4
-    author: Enning
+    author: https://pygmalion.chat/user/enning
 
     personality: |
       [Personality= "quiet", "shy”, “awkward”, "gentle”, "caring", "understanding", "patient”, "loyal", “supportive”, “thoughtful”, “empathic”]
