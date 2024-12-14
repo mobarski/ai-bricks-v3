@@ -2,7 +2,7 @@
 
 Simple, unified interface to multiple Generative AI providers and local model servers.
 
-This project is similar in scope to [AISuite](https://github.com/andrewyng/aisuite),
+This project is similar in scope to [aisuite](https://github.com/andrewyng/aisuite),
 but with the following differences:
 - stronger support for local model servers (**tabbyAPI**, **KoboldCpp**, **LMStudio**, **Ollama**, ...)
 - focus on improving your application without having to change your code
@@ -133,7 +133,7 @@ pytest tests/aibricks/middleware/
   - [v3](examples/easy/game/v3.py) adds configuration driven client+middleware creation
   - [v4](#TODO) adds save/load/undo functionality (TODO)
   - [v5](#TODO) adds streaming (TODO)
-- [worldgen](examples/easy/worldgen/) - simple, hierarchical world generation (based on [this lesson](https://learn.deeplearning.ai/courses/building-an-ai-powered-game/lesson/2/hierarchical-content-generation))
+- [worldgen](examples/easy/worldgen/) - simple, hierarchical world generator (based on [this lesson](https://learn.deeplearning.ai/courses/building-an-ai-powered-game/lesson/2/hierarchical-content-generation))
   - another stepping stone for building rpg/adventure games
   - [v1](examples/easy/worldgen/v1.py) as simple as it gets 
   - [v2](examples/easy/worldgen/v2.py) adds: 
@@ -163,5 +163,6 @@ pytest tests/aibricks/middleware/
 
 ## References
 
+- [aisuite repo](https://github.com/andrewyng/aisuite) - simple, unified interface to multiple Generative AI providers 
 - [MemGPT paper](https://arxiv.org/abs/2310.08560)
-- [Letta repo](https://github.com/letta-ai/letta) - framework for creating LLM services with memory
+- [letta repo](https://github.com/letta-ai/letta) - framework for creating LLM services with memory
