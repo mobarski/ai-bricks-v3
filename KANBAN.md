@@ -2,8 +2,6 @@
 
 # ACTIVE
 
-- [ ] game v3
-
 # PAUSED
 
 - [ ] basic chat summary middleware
@@ -69,6 +67,7 @@
 
 # DONE
 
+- [x] game v3
 - [x] move connection mapping and middleware mapping to their __init__.py files
 - [x] connection logic factored out into connection.py
 - [x] database connection factory
