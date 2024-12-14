@@ -1,12 +1,14 @@
 # TESTING
 
+- [ ] DictNamespace for responses
+
 # ACTIVE
+
+- [ ] basic chat summary middleware
 
 # PAUSED
 
-- [ ] basic chat summary middleware
 - [ ] save/load middleware
-- [ ] DictNamespace for responses
 
 - [ ] server (to act as provider)
 
