@@ -2,7 +2,6 @@ game:
   character: anne
   console-width: 80
 
-
 models:
   default:
     connection_str: lmstudio
@@ -10,12 +9,10 @@ models:
     - ChatSummaryMiddleware:
         connection:
           from_config: models.aux
-        max_in_context_chars: 8000
-  
+        max_in_context_chars: 8000  
   aux:
     connection_str: lmstudio
     debug: true
-
 
 templates:
   game_prompt: |

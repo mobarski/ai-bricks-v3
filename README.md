@@ -123,7 +123,8 @@ pytest tests/aibricks/middleware/
 
 ### Easy
 
-- [game](examples/easy/game/) - simple "chat with a character", nice stepping stone for building rpg/adventure games
+- [game](examples/easy/game/) - simple "chat with a character"
+  - nice stepping stone for building rpg/adventure games
   - [v1](examples/easy/game/v1.py) as simple as it gets
   - [v2](examples/easy/game/v2.py) adds:
     - "infinite context"
@@ -132,7 +133,8 @@ pytest tests/aibricks/middleware/
   - [v3](examples/easy/game/v3.py) adds configuration driven client+middleware creation
   - [v4](#TODO) adds save/load/undo functionality (TODO)
   - [v5](#TODO) adds streaming (TODO)
-- [worldgen](examples/easy/worldgen/) - simple, hierarchical world generation (based on [this lesson](https://learn.deeplearning.ai/courses/building-an-ai-powered-game/lesson/2/hierarchical-content-generation)), another stepping stone for building rpg/adventure games
+- [worldgen](examples/easy/worldgen/) - simple, hierarchical world generation (based on [this lesson](https://learn.deeplearning.ai/courses/building-an-ai-powered-game/lesson/2/hierarchical-content-generation))
+  - another stepping stone for building rpg/adventure games
   - [v1](examples/easy/worldgen/v1.py) as simple as it gets 
   - [v2](examples/easy/worldgen/v2.py) adds: 
     - jinja macros to clean up the [prompts](examples/easy/worldgen/worldgen-v2.yaml)
@@ -144,6 +146,10 @@ pytest tests/aibricks/middleware/
   - [v1](#TODO) ~~as simple as it gets~~
   - [v2](#TODO) ~~adds UI designer role~~
 
+### Advanced
+- [memgpt](examples/advanced/memgpt) - basic MemGTP agent
+
+
 ## Planned features
 
 - anthropic api support
@@ -153,3 +159,9 @@ pytest tests/aibricks/middleware/
 - mamba support
 - huggingface downloads
 - more middleware
+
+
+## References
+
+- [MemGPT paper](https://arxiv.org/abs/2310.08560)
+- [Letta repo](https://github.com/letta-ai/letta) - framework for creating LLM services with memory
