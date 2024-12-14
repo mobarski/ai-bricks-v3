@@ -1,0 +1,41 @@
+game:
+  character: anne
+  console-width: 80
+
+
+models:
+  default:
+    connection_str: lmstudio
+    middleware:
+    - ChatSummaryMiddleware:
+        connection:
+          from_config: models.aux
+        max_in_context_chars: 8000
+  
+  aux:
+    connection_str: lmstudio
+    debug: true
+
+
+templates:
+  game_prompt: |
+    You are a Game Master (GM) for a text adventure game.
+    You will be playing as a character given below.
+    Everything you say is the character's voice with two exceptions:
+    1. text between parentheses is off-character talk between player and GM
+    2. text between asterisks is narrative description (use third person)
+    Use propper names in placeholders like {{char}} and {{user}}.
+    Do not answer as the player character, never!
+    Output only text, no markdown other than described.
+
+    <CHARACTER>
+      <NAME>{{ character.name }}</NAME>
+      <PERSONALITY>{{ character.personality }}</PERSONALITY>
+      <DESCRIPTION>{{ character.description }}</DESCRIPTION>
+      <SCENARIO>{{ character.scenario }}</SCENARIO>
+    </CHARACTER>
+
+    Assume {{char}} just said: {{ character.first_message }}
+
+include:
+  - characters.yaml
