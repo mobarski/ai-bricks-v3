@@ -115,9 +115,6 @@ python3 -m aibricks.providers.lmstudio_api
 # Run all tests
 pytest
 
-# Run only provider tests
-pytest tests/aibricks/providers/
-
 # Run only middleware tests
 pytest tests/aibricks/middleware/
 ```
@@ -132,7 +129,7 @@ pytest tests/aibricks/middleware/
     - "infinite context"
     - colors and formatting
     - more characters
-  - [v3](#TODO) adds configuration driven client+middleware creation (TODO)
+  - [v3](examples/easy/game/v3.py) adds configuration driven client+middleware creation
   - [v4](#TODO) adds save/load/undo functionality (TODO)
   - [v5](#TODO) adds streaming (TODO)
 - [worldgen](examples/easy/worldgen/) - simple, hierarchical world generation (based on [this lesson](https://learn.deeplearning.ai/courses/building-an-ai-powered-game/lesson/2/hierarchical-content-generation)), another stepping stone for building rpg/adventure games

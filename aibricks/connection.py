@@ -46,7 +46,7 @@ def _create_connection_from_config(config, active, **kwargs):
             # Handle nested connection configuration
             if middleware_params and 'connection' in middleware_params:
                 conn_config = middleware_params['connection']
-                if 'from_config' in conn_config:
+                if isinstance(conn_config, dict) and 'from_config' in conn_config:
                     middleware_params['connection'] = connect(
                         from_config=conn_config['from_config'],
                         config=config

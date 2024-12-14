@@ -2,7 +2,7 @@
 
 # ACTIVE
 
-- [ ] connection middleware from_config -> make it less UGLY
+- [ ] game v3
 
 # PAUSED
 
