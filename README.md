@@ -78,9 +78,8 @@ print(resp)
 # initialize OpenAI compatible client as usual
 client = aibricks.client()
 
-# add 3 lines to create the illusion of an infinite context
-ctx = {}
-summary_middleware = ChatSummaryMiddleware(ctx, max_in_context_chars=12000)
+# add 2 lines to create the illusion of an infinite context
+summary_middleware = ChatSummaryMiddleware(max_in_context_chars=12000)
 client.add_middleware(summary_middleware)
 
 # use the client as usual
