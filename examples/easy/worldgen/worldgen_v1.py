@@ -8,7 +8,7 @@ import aibricks
 from aibricks.utils import dict_from_xml, list_from_xml
 
 os.chdir(os.path.dirname(__file__))  # kind of ugly
-cfg = aibricks.load_config('./worldgen-v1.yaml')
+cfg = aibricks.load_config('./worldgen_v1.yaml')
 
 client = aibricks.client()
 

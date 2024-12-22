@@ -4,7 +4,7 @@ import aibricks
 MODEL = 'lmstudio:'
 
 os.chdir(os.path.dirname(__file__))  # kind of ugly
-cfg = aibricks.load_config("./game-v1.yaml")
+cfg = aibricks.load_config("./game_v1.yaml")
 
 character = cfg.lookup('characters.marcus')
 game_prompt = cfg.render('game_prompt', character=character)

@@ -7,6 +7,7 @@ from ..utils import DatabaseFactory
 
 class LoggingMiddleware(MiddlewareBase):
 
+    # TODO: add metadata
     def __init__(self, db):
         super().__init__()
         # Handle db parameter - can be either a connection or a path

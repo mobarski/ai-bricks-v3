@@ -43,6 +43,7 @@ class OpenAiConnection(MiddlewareMixin):
         return norm_resp
 
     # WIP
+    # TODO: add stream_options=('include_usage': True)
     def chat_create_stream(self, messages, **kwargs):
         data = self.normalized_chat_data(messages, **kwargs)
         request = self.normalized_chat_request(data)

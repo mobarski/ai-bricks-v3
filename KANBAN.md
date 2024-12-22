@@ -1,14 +1,12 @@
 # TESTING
 
-- [ ] DictNamespace for responses
-
 # ACTIVE
 
+- [ ] save/load middleware
 - [ ] basic chat summary middleware
+- [ ] codegen
 
 # PAUSED
-
-- [ ] save/load middleware
 
 - [ ] server (to act as provider)
 
@@ -69,6 +67,7 @@
 
 # DONE
 
+- [x] DictNamespace for responses
 - [x] game v3
 - [x] move connection mapping and middleware mapping to their __init__.py files
 - [x] connection logic factored out into connection.py

@@ -8,7 +8,7 @@ but with the following differences:
 - focus on improving your application without having to change your code
 - middleware for logging, usage tracking, styling, etc
 - configuration driven approach
-- minimal dependencies (*requests*, *pyyaml*, *jinja2*)
+- minimal dependencies (*requests*, *yamja*)
 
 
 ## Supported providers
@@ -124,26 +124,23 @@ pytest tests/aibricks/middleware/
 
 - [game](examples/easy/game/) - simple "chat with a character"
   - nice stepping stone for building rpg/adventure games
-  - [v1](examples/easy/game/v1.py) as simple as it gets
-  - [v2](examples/easy/game/v2.py) adds:
+  - [v1](examples/easy/game/game_v1.py) as simple as it gets
+  - [v2](examples/easy/game/game_v2.py) adds:
     - "infinite context"
     - colors and formatting
     - more characters
-  - [v3](examples/easy/game/v3.py) adds configuration driven client+middleware creation
+  - [v3](examples/easy/game/game_v3.py) adds configuration driven client+middleware creation
   - [v4](#TODO) adds save/load/undo functionality (TODO)
   - [v5](#TODO) adds streaming (TODO)
 - [worldgen](examples/easy/worldgen/) - simple, hierarchical world generator (based on [this lesson](https://learn.deeplearning.ai/courses/building-an-ai-powered-game/lesson/2/hierarchical-content-generation))
   - another stepping stone for building rpg/adventure games
-  - [v1](examples/easy/worldgen/v1.py) as simple as it gets 
-  - [v2](examples/easy/worldgen/v2.py) adds: 
+  - [v1](examples/easy/worldgen/worldgen_v1.py) as simple as it gets 
+  - [v2](examples/easy/worldgen/worldgen_v2.py) adds: 
     - jinja macros to clean up the [prompts](examples/easy/worldgen/worldgen-v2.yaml)
-    - more entities (NPCs, locations, events)
-    - prompt_and_parse helper function
-    - ~~automatic XML fixing~~
-  - [v3](#TODO) ~~adds ability to use images for the inspiration~~
 - [codegen](examples/easy/codegen/) - simple code generation for tiny web apps
   - [v1](#TODO) ~~as simple as it gets~~
-  - [v2](#TODO) ~~adds UI designer role~~
+  - [v2](#TODO) ~~adds more tools~~
+  - [v3](#TODO) ~~adds multiple roles~~
 
 ### Advanced
 - [memgpt](examples/advanced/memgpt) - basic MemGTP agent
@@ -165,3 +162,4 @@ pytest tests/aibricks/middleware/
 - [aisuite repo](https://github.com/andrewyng/aisuite) - simple, unified interface to multiple Generative AI providers 
 - [MemGPT paper](https://arxiv.org/abs/2310.08560)
 - [letta repo](https://github.com/letta-ai/letta) - framework for creating LLM services with memory
+- [OpenAI API](https://platform.openai.com/docs/api-reference/chat)

@@ -1,0 +1,19 @@
+tools:
+
+  replace:
+    description: >
+      Replace a string in a file.
+      Create the file if it doesn't exist.
+    parameters:
+      file:
+        type: string
+        description: The file to replace in
+      old:
+        type: string
+        description: >
+          The old text to replace.
+          If empty, the file is replaced with the new text.
+          If not found, nothing is replaced.
+      new:
+        type: string
+        description: The new text to replace it with

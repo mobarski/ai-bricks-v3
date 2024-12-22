@@ -1,8 +1,13 @@
 import os
 import aibricks
 
+import rich
 import re
 from rich.console import Console
+
+CHARACTER = 'anne'
+MODEL = 'lmstudio:'
+console = Console(width=80)
 
 
 def rich_output(text):
@@ -11,29 +16,29 @@ def rich_output(text):
     console.print(text)
 
 
-# SETUP
-os.chdir(os.path.dirname(__file__))
-cfg = aibricks.load_config("./game-v3.yaml")
+os.chdir(os.path.dirname(__file__)) # kind of ugly
+cfg = aibricks.load_config("./game_v2.yaml")
 
-client = aibricks.client(from_config='models.default', config=cfg)
-WIDTH = cfg.lookup('game.console-width')
-console = Console(width=WIDTH)
-
-# GAME PROMPT
-character_id = cfg.lookup('game.character')
-character = cfg.lookup('characters.' + character_id)
+character = cfg.lookup(f'characters.{CHARACTER}')
 game_prompt = cfg.render('game_prompt', character=character)
 
 messages = [{'role': 'system', 'content': game_prompt}]
 
-# GAME LOOP
 rich_output(character['scenario'])
 rich_output(character['first_message'])
+
+client = aibricks.client()
+
+aux_connection = aibricks.connect('lmstudio:')
+summary_middleware = aibricks.middleware.ChatSummaryMiddleware(aux_connection, max_in_context_chars=8000)
+summary_middleware.debug = True
+client.add_middleware(summary_middleware)
+
 while True:
-    rich_output('='*WIDTH)
+    rich_output('='*80)
     user_text = console.input("[bold white]You: ", )
     messages += [{'role': 'user', 'content': user_text}]
-    response = client.chat.completions.create(None, messages=messages)
+    response = client.chat.completions.create(model=MODEL, messages=messages)
     ai_text = response.choices[0].message.content
     rich_output('\n' + ai_text)
     messages += [{'role': 'assistant', 'content': ai_text}]
