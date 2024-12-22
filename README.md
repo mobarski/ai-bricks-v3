@@ -7,7 +7,7 @@ but with the following differences:
 - stronger support for local model servers (**tabbyAPI**, **KoboldCpp**, **LMStudio**, **Ollama**, ...)
 - focus on improving your application without having to change your code
 - middleware for logging, usage tracking, styling, etc
-- configuration driven approach
+- configuration driven approach (yaml + jinja2)
 - minimal dependencies (*requests*, *yamja*)
 
 
