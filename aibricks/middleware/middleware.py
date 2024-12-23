@@ -6,16 +6,20 @@ class MiddlewareBase:
     def __init__(self):
         self.parent = None
 
-    def request(self, data, ctx):
-        return data
+    def request(self, request, ctx):
+        return request
 
     def handle_response(self, response, ctx, request=None):
         return None
 
-    def response(self, data, ctx):
-        return data
+    def raw_response(self, response, ctx):
+        return response
 
-    # other events can be added
+    def response(self, response, ctx):
+        return response
+
+    def normalized_response(self, response, ctx):
+        return response
 
 
 class MiddlewareMixin:

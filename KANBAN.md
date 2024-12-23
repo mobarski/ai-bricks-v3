@@ -67,6 +67,7 @@
 
 # DONE
 
+- [x] use yamja for config
 - [x] DictNamespace for responses
 - [x] game v3
 - [x] move connection mapping and middleware mapping to their __init__.py files

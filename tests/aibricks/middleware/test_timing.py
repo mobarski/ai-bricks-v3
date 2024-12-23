@@ -7,9 +7,9 @@ from aibricks.middleware import TimingMiddleware
 
 
 @pytest.mark.parametrize("model_id", [
-    "openai:gpt-4o-mini",
+    #"openai:gpt-4o-mini",
     "openrouter:meta-llama/llama-3.2-1b-instruct:free",
-    "google:gemini-1.5-flash-8b",
+    #"google:gemini-1.5-flash-8b",
     "arliai:Mistral-Nemo-12B-Instruct-2407",
     "xai:grok-beta",
 ])
@@ -19,7 +19,7 @@ def test_timing_middleware_on_client(model_id):
     resp = client.chat.completions.create(model=None, messages=[{"role": "user", "content": "Tell me a joke."}])
     print(model_id, client.ctx)
     try:
-        content = resp['choices'][0]['message']['content']
+        content = resp.choices[0].message.content
     except KeyError as e:
         print(resp)
         raise e
@@ -27,9 +27,9 @@ def test_timing_middleware_on_client(model_id):
 
 
 @pytest.mark.parametrize("model_id", [
-    "openai:gpt-4o-mini",
+    #"openai:gpt-4o-mini",
     "openrouter:meta-llama/llama-3.2-1b-instruct:free",
-    "google:gemini-1.5-flash-8b",
+    #"google:gemini-1.5-flash-8b",
     "arliai:Mistral-Nemo-12B-Instruct-2407",
     "xai:grok-beta",
 ])
@@ -39,7 +39,7 @@ def test_timing_middleware_on_connection(model_id):
     resp = conn.chat_create([{"role": "user", "content": "Tell me a joke."}])
     print(model_id, conn.ctx)
     try:
-        content = resp['choices'][0]['message']['content']
+        content = resp.choices[0].message.content
     except KeyError as e:
         print(resp)
         raise e

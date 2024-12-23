@@ -10,7 +10,7 @@ def test_client_basic():
         messages=[{"role": "user", "content": "Tell me a joke."}],
         temperature=0.7)
     try:
-        content = resp['choices'][0]['message']['content']
+        content = resp.choices[0].message.content
     except KeyError as e:
         print(resp)
         raise e
@@ -25,7 +25,7 @@ def test_client_model():
         model='xxx',
         messages=[{"role": "user", "content": "Tell me a joke."}],)
     try:
-        content = resp['choices'][0]['message']['content']
+        content = resp.choices[0].message.content
     except KeyError as e:
         print(resp)
         raise e
@@ -44,7 +44,7 @@ def test_client_model_lambda():
         max_tokens=20,
         )
     try:
-        content = resp['choices'][0]['message']['content']
+        content = resp.choices[0].message.content
         print(content)
         print(resp)
     except KeyError as e:
@@ -62,7 +62,7 @@ def test_client_from_config(conn_id):
     client = aibricks.client(from_config=conn_id, config=cfg) # FIXME: kwargs are not passed to connect
     resp = client.chat.completions.create(None, messages=[{"role": "user", "content": "Tell me a joke."}])
     try:
-        content = resp['choices'][0]['message']['content']
+        content = resp.choices[0].message.content
         print(content)
     except KeyError as e:
         print(resp)

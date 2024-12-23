@@ -29,7 +29,13 @@ class OpenAiConnection(MiddlewareMixin):
         # Allow middleware to handle the response before JSON serialization
         middleware_response = self.run_middleware("handle_response", None, request=request)
         if middleware_response is not None:
-            raw_resp = middleware_response
+            if hasattr(middleware_response, 'json'):
+                raw_resp = middleware_response
+            else:
+                # allow middleware to return python objects
+                resp = requests.models.Response()
+                resp._content = json.dumps(middleware_response).encode()
+                raw_resp = resp
         else:
             request['data'] = json.dumps(data)  # JSON serialize only if making actual API call
             raw_resp = self.post_request(**request)
@@ -64,7 +70,6 @@ class OpenAiConnection(MiddlewareMixin):
                 #norm_resp = self.normalize_response(resp)
                 #norm_resp = self.run_middleware("normalized_response", norm_resp)
                 yield DictNamespace(resp)
-
 
     def post_request(self, **kwargs):
         return requests.post(**kwargs)
